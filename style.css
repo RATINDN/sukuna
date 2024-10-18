@@ -93,7 +93,7 @@ main{
     justify-content: center;
     align-items: center;
     color: rgba(0, 0, 0, 0);
-    background-color: black;
+    /* background-color: black; */
     cursor: pointer;
 }
 
