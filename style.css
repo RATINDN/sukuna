@@ -60,7 +60,7 @@ main{
 
     }
     .row{
-        flex-direction: column;
+        flex-wrap: wrap;
         row-gap: 20px;
         width: 100%;
     }
