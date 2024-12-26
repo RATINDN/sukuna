@@ -1,20 +1,33 @@
   const menuBox = document.getElementById('menu-box' ); 
   const menuBox2 = document.getElementById('overlay2' );  
- 
-  
+  const li1 = document.getElementById("li1");
 
-function toggleMenu() {
-
-  menuBox.style.display ="flex" ;
+  let ismenu=true;
+  li1.addEventListener('click' ,()=>
+    {
+      menuBox.style.display ="flex" ;
   menuBox2.style.display ="flex";
   menuBox2.style.transition ="0.5s ease-in-out";
   menuBox2.style.height ="100%";
   body.style.overflow ="hidden";
+  
 
-
- 
-   
+  if(ismenu){
+    ismenu=false;
   }
+
+  else {
+    menuBox.style.display ="none";
+    menuBox2.style.transition ="0.5s ease-in-out";
+    menuBox2.style.height ="0";
+    body.style.overflow ="visible";
+    ismenu=true;
+
+  }
+    }
+    )
+  
+
 
 
 
