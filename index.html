@@ -1,40 +1,683 @@
+
+
+
 <!DOCTYPE html>
-<html lang="en">
+
+
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-<link rel="stylesheet" href="style.css">
+  <div class="container-load" id="container-load">
+    <span class="container20" id="container20" >
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </span>
+  </div>
+
+ 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
 </head>
-<body>
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="box">
-                    <div class="box2" style="background-image: url(images/1.jpg);" >
-                        <div class="box3"><h1>+</h1></div>
-                    </div>
-                    
-                </div>
-                <div class="box">
-                    <div class="box2" style="background-image: url(images/2.jpg);">
-                        <div class="box3"><h1>+</h1></div>
-                    </div>
-                    
-                </div>
-                <div class="box">
-                    <div class="box2" style="background-image: url(images/3.jpg);">\
-                        <div class="box3" style="position: relative;
-                        bottom: 19px;"><h1>+</h1></div>
-                    </div>
-                   
-                </div>
+<body style="background-color: ghostwhite;  " aria-disabled="true" id="body" >
+
+  
+ 
+  <main>  
+
+    <nav id="nav">
+    
+
+      <div  class="span" class="closebtn"  onclick="openNav()" id="closebtn"  >
+        <svg xmlns="http://www.w3.org/2000/svg" width="80%" height="80%" fill="currentColor" class="arrow" viewBox="0 0 16 16" >
+        <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
+        <path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708z"/>
+        
+      </svg>
+
+      
+
+
+
+      
+
+
+    </div>  
+
+    <div id="myMenu" onclick="closeNav()">
+      <!-- <ul> -->
+        <div class="lb"  id="lb1"  onclick="opencar()"><h6 class="li3"  >  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left"  viewBox="0 0 16 16" style="position: relative; top:5px;">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+        </svg>  vehicles</h6></div>
+        
+        
+
+         
+
+        <div class="lb" id="lb2"><h6 class="li4"  > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left"  viewBox="0 0 16 16" style="position: relative; top:5px;">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+        </svg>  company</h6></div>
+
+        
+      <!-- </ul> -->
+    </div>
+
+
+    <div class="scroll" id="scroll">
+
+    </div>
+
+    <div id="overlay">
+
+    </div>
+      <ul >
+         <li style="cursor: pointer; " class="li1"   onclick="toggleMenu()" id="li1">vehicles
+
+       
              
+         
+          <div class="veil" id="menu-box"  >
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="down2" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+            </svg>
+
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="up" viewBox="0 0 16 16" style="display: none;">
+              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708z"/>
+            </svg>
+
+            <div class="veil2" id="veil2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" class="down" >
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+              </svg>
+
+              <div class="parent">
+               <div class="box" >
+
+                  <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/car\ 1.avif);">
+                   <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+                  </div>
+                <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+                   <div class="box-3" ><h4 style="font-weight: 400;">2024 Audi A6 e-tron</h4></div>
+                   <div class="box3" style="height: 50%;">
+                    <h6 style="font-weight: 400;"id="h6">Starting price : <del>39,029$</del> 33,451$</h6>
+                    <h6 style="font-weight: 400;"id="h6">Avaible amount : 10000</h6>
+                   </div>
                 </div>
 
+                
 
+                
+              </div>
+
+
+
+
+              <div class="box" >
+
+                <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/1.webp);">
+                 <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+                </div>
+              <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+                 <div class="box-3" ><h4 style="font-weight: 400; " >2011 Lamborghini Aventador</h4></div>
+                 <div class="box3" style="height: 50%;">
+                  <h6 style="font-weight: 400;"id="h6">Starting price : 424,000$</h6>
+                  <h6 style="font-weight: 400;"id="h6">Avaible amount : 2956</h6>
+                 </div>
+              </div>
+
+              
+
+              
             </div>
+
+
+
+
+
+            <div class="box" >
+
+              <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/2.webp);">
+               <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+              </div>
+            <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+               <div class="box-3" ><h4 style="font-weight: 400;">2017 Rolls-Royce Phantom</h4></div>
+               <div class="box3" style="height: 50%;">
+                <h6 style="font-weight: 400;"id="h6">Starting price : 1,500,000$</h6>
+                <h6 style="font-weight: 400;"id="h6">Avaible amount : 163</h6>
+               </div>
+            </div>
+
+            
+
+            
+          </div>
+
+
+
+          <div class="box" >
+
+            <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/3.webp);">
+             <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+            </div>
+          <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+             <div class="box-3" ><h4 style="font-weight: 400;">2013 Ferrari LaFerrari</h4></div>
+             <div class="box3" style="height: 50%;">
+              <h6 style="font-weight: 400;"id="h6">Starting price : 2,300,020$</h6>
+              <h6 style="font-weight: 400;"id="h6">Avaible amount : 50</h6>
+             </div>
+          </div>
+
+          
+
+          
         </div>
-    </main>
+
+
+ 
+
+
+
+
+        <div class="box" >
+
+          <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/4.webp);">
+           <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+          </div>
+        <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+           <div class="box-3" ><h4 style="font-weight: 400;">2023 Range Rover</h4></div>
+           <div class="box3" style="height: 50%;">
+            <h6 style="font-weight: 400;"id="h6">Starting price : 95,678$</h6>
+            <h6 style="font-weight: 400;"id="h6">Avaible amount : 5692</h6>
+           </div>
+        </div>
+
+        
+
+        
+      </div>
+
+
+
+
+
+
+
+      <div class="box" >
+
+        <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/5.webp);">
+         <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+        </div>
+      <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+         <div class="box-3" ><h4 style="font-weight: 400;">2021 Mercedes-Benz S-Class</h4></div>
+         <div class="box3" style="height: 50%;">
+          <h6 style="font-weight: 400;" id="h6">Starting price :  1,200,000$</h6>
+          <h6 style="font-weight: 400;"id="h6">Avaible amount : 968</h6>
+         </div>
+      </div>
+
+      
+
+      
+    </div>
+
+
+
+
+
+   
+
+
+
+
+
+
+
+  <!-- <div class="box" >
+
+    <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/6.webp);">
+     <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
+    </div>
+  <div class="box2" style="display: flex; flex-direction: column;  justify-content: space-between;">
+     <div class="box-3" ><h4 style="font-weight: 400;" >2014 Ferrari F8 Tributo</h4></div>
+     <div class="box3" style="height: 50%;">
+      <h6 style="font-weight: 400;" id="h6">Starting price : 3,251,000$</h6>
+      <h6 style="font-weight: 400;" id="h6">Avaible amount : 96</h6>
+     </div>
+  </div> -->
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+              
+
+
+
+
+                
+
+              </div>
+            </div>
+          </div>
+          
+         </li>
+         <li style="cursor: pointer; " class="li2" id="li2">company</li>
+         
+      </ul>
+
+
+      <div class="mode" id="mode"  ><svg  onclick="darkmode()" xmlns="http://www.w3.org/2000/svg" width="35" height="35" id="sun" fill="currentColor" class="sun" style="display: none;" viewBox="0 0 16 16" >
+        <path d="M12 8a4 4 0 1 1-8 0 4 4 0 0 1 8 0M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+      </svg>
+
+      <svg onclick="darkmode()" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" style="color: black;" class="moon" id="moon" viewBox="0 0 16 16" >
+        <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+      </svg>
+    </div>
+
+      
+
+       
+
+      <!-- <div class="header" >
+    
+        <span></span>
+        
+        <input type="text" id="btn-search" class="material-icons" placeholder="search"  />
+
+       
+       
+      </div> -->
+
+      
+      <div class="bow" id="bow">
+      <button class="register" id="register">register</button>
+    </div>
+    
+  </nav>
+
+  <div class="menu" id="openmenu"   onclick="  closeNav2();">
+    <div class="parent-mobile" id="parent-mobile">
+    <div class="box-mobile " id="boxing1" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/car\ 1.avif);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4"  >2024 Audi A6 e-tron</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6" >Starting price : <del >39,029$</del> 33,451$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6" >Avaible amount : 10000</h6>
+       </div>
+    </div> 
+    </div>
+
+    <div class="box-mobile " id="boxing2" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/1.webp );">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2011 Lamborghini Aventador</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Starting price : 424,000$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 2956</h6>
+       </div>
+    </div> 
+    </div>
+
+
+    <div class="box-mobile " id="boxing3" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/2.webp);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2017 Rolls-Royce Phantom </h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Starting price : 1,500,000$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 163</h6>
+       </div>
+    </div> 
+    </div>
+
+
+    <div class="box-mobile " id="boxing4" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/3.webp);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2013 Ferrari LaFerrari</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px; "  id="h6">Starting price : 2,300,020$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 50</h6>
+       </div>
+    </div> 
+    </div>
+
+
+
+    <div class="box-mobile " id="boxing5" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/4.webp);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2023 Range Rover</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Starting price : 95,678$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 5692</h6>
+       </div>
+    </div> 
+    </div>
+
+
+
+
+    <div class="box-mobile " id="boxing6" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/5.webp);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2021 Mercedes-Benz S-Class</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Starting price :  1,200,000$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 968</h6>
+       </div>
+    </div> 
+    </div>
+
+
+
+
+    <div class="box-mobile  " id="boxing7" style="color: black;">
+
+      <div class="box-2-mobile" style="height: 90%; border-radius: 15px; background-image: url(images/6.webp);">
+       <a href="" style="width: 100%;"> <div class="child-mobile"><h1 style=" font-weight: 400;" >+</h1></div></a>
+      </div>
+    <div class="box2-mobile" style="display: flex; flex-direction: column;  justify-content: space-between;">
+       <div class="box-3-mobile" ><h4 style="font-weight: 400; font-size: normal;" class="h4" >2014 Ferrari F8 Tributo</h4></div>
+       <div class="box3-mobile" style="height: 50%;">
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Starting price : 3,251,000$</h6>
+        <h6 style="font-weight: 400; font-size: 10px;" id="h6">Avaible amount : 96</h6>
+       </div>
+    </div> 
+    </div>
+
+
+
+
+
+   
+
+
+
+
+    
+
+    
+
+
+    
+    
+  </div>
+
+
+    
+
+
+
+    
+
+    
+
+  
+
+
+
+  
+
+  
+    
+  </div>
+  
+
+
+ 
+
+<div class="container1">
+  <div class="child2" >
+   
+    
+    <div class="child3" style="background-image: url(images/car\ 1.avif);"><div class="child4"> </div></div>
+  </div>
+  <h1 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-variant: small-caps ; color: white; " id="move" class="move">Our brand New 2024 Audi A6 e-tron</h1> <br>
+    <button class="button" id="move" onclick="toggleMenu()">more Detail  </button>
+    <button class="button3" id="move" onclick=" opencar()">more Details</button>
+
+
+
+<div class="real">
+  <div class="real2" style="animation: load ; animation-timeline: view();"><img src="images/man.webp" width="100%" height="100%" alt=""></div>
+  <div class="real2" >
+    <div class="real3"><h1 style="font-weight: 200 !important;">Why Should You trust Us ?</h1></div>
+  <div class="real3" style="height: 60%; " ><h3 style="font-weight: 100;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat eveniet nobis eaque? Odit, cumque cupiditate reiciendis molestias saepe Lorem ipsum dolor sit amet consectetur adipisicing elit. Error ut veritatis corrupti iste laborum omnis accusantium voluptas amet porro ad quis voluptatibus unde impedit dolore, provident magni cumque doloremque id?.......</h3></div>
+  <div class="real3" style="height: 20%; justify-content: center; align-items: center;"><button class="button2" id="button-read2">Read More</button></div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" style="background-image: url(images/1.webp);">
+      <div class="ord">
+        <h3>2011 Lamborghini Aventador</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+    <div class="swiper-slide" style="background-image: url(images/2.webp);">
+      <div class="ord">
+        <h3>2017 Rolls-Royce Phantom</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+    <div class="swiper-slide" style="background-image: url(images/3.webp);">
+      <div class="ord">
+        <h3>2013 Ferrari LaFerrari</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+    
+    <div class="swiper-slide" style="background-image: url(images/4.webp);">
+      <div class="ord">
+        <h3>2023 Range Rover</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+    <div class="swiper-slide" style="background-image: url(images/car\ 1.avif);">
+      <div class="ord">
+        <h3>2024 Audi A6 e-tron</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <del style="color: red; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">20% OFF</del>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+    <div class="swiper-slide" style="background-image: url(images/6.webp);">
+      <div class="ord">
+        <h3>2014 Ferrari F8 Tributo</h3>
+      </div>
+      <div class="ord"><button class="order">Order</button>
+        <div class="card"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+</svg></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<div class="real" style="position: relative; top: 130px;">
+  <div class="real2-mobile-2" >
+    <div class="real3-mobile-2"><h1 style="font-weight: 200 !important;">Why Should You trust  ?</h1></div>
+  <div class="real3-mobile-2" style="height: 60%; " ><h3 style="font-weight: 100;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat eveniet nobis eaque? Odit, cumque cupiditate reiciendis molestias saepe Lorem ipsum dolor sit amet consectetur adipisicing elit. Error ut veritatis corrupti iste laborum omnis accusantium voluptas amet porro ad quis voluptatibus unde impedit dolore, provident magni cumque doloremque id?.......</h3></div>
+  <div class="real3-mobile-2" style="height: 20%; justify-content: center; align-items: center;"><button class="button2" id="button-read3">Read More</button></div>
+</div>
+  <div class="real2-mobile-2" style="width: 60%; animation: load ; animation-timeline: view();" ><img src="images/woman.webp" width="100%" height="100%" alt=""></div>
+
+  <div class="real2-mobile" >
+    <div class="real2-mobile" style="width: 60%;animation: load ; animation-timeline: view();" ><img src="images/woman.webp" width="100%" height="100%" alt=""></div>
+
+    <div class="real3-mobile"><h1 style="font-weight: 200 !important;">Why Should You trust  ?</h1></div>
+  <div class="real3-mobile" style="height: 60%; " ><h3 style="font-weight: 100;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat eveniet nobis eaque? Odit, cumque cupiditate reiciendis molestias saepe Lorem ipsum dolor sit amet consectetur adipisicing elit. Error ut veritatis corrupti iste laborum omnis accusantium voluptas amet porro ad quis voluptatibus unde impedit dolore, provident magni cumque doloremque id?.......</h3></div>
+  <div class="real3-mobile" style="height: 20%; justify-content: center; align-items: center;"><button class="button2" id="button-read1">Read More</button></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+ 
+
+</div>
+
+<footer>
+  <div class="parent2-foot">
+    <div class="parent-foot">
+      <div class="child-foot">
+        <div class="child2-foot">
+      <div class="box-foot">
+        <h2 class="h33">About Us</h2>
+        
+        <a href="" class="a2"><h5>Company</h5></a>
+        <a href="" class="a2"><h5>Blog</h5></a>
+        <a href="" class="a2"><h5>Innovation</h5></a>
+        <a href="" class="a2"><h5>Career</h5></a>
+        <a href="" class="a2"><h5>Sustainability</h5></a>
+     </div>
+      <div class="box-foot">
+        <h2 class="h33">services </h2>
+
+
+        <a href="" class="a2"><h5>Contact</h5></a>
+        <a href="" class="a2"><h5>our jobs </h5></a>
+        <a href="" class="a2"><h5>guarantees</h5></a>
+        <a href="" class="a2"><h5>Advertise Your Products</h5></a>
+
+      </div>
+      
+      <div class="box-foot">
+        <h2 class="h33">  Policies</h2>
+
+
+        <a href="" class="a2"><h5>Management</h5></a>
+        <a href="" class="a2"><h5>Your Account</h5></a>
+        <a href="" class="a2"><h5>privacy and Policies</h5></a>
+        <a href="" class="a2"><h5>Returns & Replacements</h5></a>
+        <a href="" class="a2"><h5>Locations</h5></a>
+        <a href="" class="a2"><h5>Help</h5></a>
+
+        
+ 
+      </div>
+
+
+
+
+
+
+
+      
+      
+ 
+      </div>
+
+
+
+      
+      
+    </div>
+    
+    </div>
+   
+    </div>
+  </div>
+</footer>
+  </main>
+  
+
+  <div id="overlay2" onclick="closetoggleMenu()"></div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script src="js/js.js"></script>
+  
 </body>
 </html>
+
