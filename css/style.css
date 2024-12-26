@@ -1650,7 +1650,7 @@ del{
   justify-content: center;
   align-items: center;
   background-color: black;
-  z-index: 4;
+  z-index: 4 !important; 
   transition: 0.5s ease-in-out;
 }
 
