@@ -16,10 +16,14 @@
 .const-bow{
   border-left: 1px solid white !important;
   transition: 0.4s ease-in-out;
+
 }
 
 .const-register{
   transition: 0.4s ease-in-out;
+  border: 1px solid white !important;
+
+
 }
 
 .const-scroll{
