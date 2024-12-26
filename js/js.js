@@ -199,7 +199,6 @@ boxing7.classList.toggle("const-box");
 
 
 
-
 var swiper = new Swiper(".mySwiper", {
   slidesPerView: "auto",
   centeredSlides: true,
@@ -216,6 +215,8 @@ var swiper = new Swiper(".mySwiper", {
     el: ".swiper-pagination",
     clickable: true,
   },
+
+
 });
 
 
