@@ -931,7 +931,7 @@ opacity: 0.9;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation:pp 1s ;
+  animation:pp 3s ;
 }
 
 .child7{
@@ -949,7 +949,7 @@ opacity: 0.9;
   background-repeat: no-repeat;
   background-position: center;
   transition: 0.4s ease-in-out;
-  animation:pp 3s ;
+  animation:pp 5s ;
 
 }
 
