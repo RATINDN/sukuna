@@ -224,19 +224,18 @@ ul{
 
 .scroll{
   height: 5px;
-  width: 100%;
+  width: 0%;
   position: fixed;
   top: 53px;
   background-color: black;
   z-index: 1;
-  scale: 0 1;
   transform-origin: left;
   animation: mob linear;
   animation-timeline: scroll();
 }
 
 @keyframes mob{
-  to {scale: 1 1;}
+  to {width: 100%;}
 }
 
 .bow
