@@ -2155,7 +2155,7 @@ ul{
  }
 
 .h4{
-  font-weight: 900 !important;
+  font-weight: 500 !important;
 
 }
 
@@ -2180,12 +2180,19 @@ ul{
 
 
 @media (min-width: 992px) and (max-width: 1199.98px) { 
-  ul{
-    display:none;
-  }
+ 
 
   .mode{
     left: 39%;
+ }
+
+ .span{
+  display: none;
+ }
+
+ .box-3 h4{
+  font-size: 16px  !important;
+  font-weight: 500 !important;
  }
 
  .swiper-slide{
