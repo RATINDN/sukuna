@@ -2223,11 +2223,11 @@ ul{
 
 
  .button{
-  display: none;
+  display: block;
  }
 
  .button3{
-  display: block;
+  display: none;
  }
 
 
