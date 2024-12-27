@@ -2181,6 +2181,9 @@ ul{
 
 @media (min-width: 992px) and (max-width: 1199.98px) { 
  
+  .box{
+    left: 8.5% !important;
+  }
 
   .mode{
     left: 30%;
