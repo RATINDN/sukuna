@@ -38,14 +38,14 @@ function toggleMenu(){
   body.style.overflow ="hidden";
 }
 
-   function closetoggleMenu(){
-  menuBox.style.display ="none";
-  menuBox2.style.transition ="0.5s ease-in-out";
-  menuBox2.style.height ="0";
-  body.style.overflow ="visible";
+  //  function closetoggleMenu(){
+  // menuBox.style.display ="none";
+  // menuBox2.style.transition ="0.5s ease-in-out";
+  // menuBox2.style.height ="0";
+  // body.style.overflow ="visible";
 
 
-    }
+  //   }
   
   
  
