@@ -1850,6 +1850,10 @@ del{
   animation-timeline: scroll();
 }
 
+@keyframes mob{
+  to {width: 100%;}
+}
+
  
 .move{
   font-size: 17px !important;
@@ -2049,6 +2053,10 @@ ul{
     left: 28%;
  }
 
+ @keyframes mob{
+  to {width: 100%;}
+}
+
  .scroll{
   height: 5px;
   width: 0%;
@@ -2153,6 +2161,10 @@ input[type="text"]:focus {
   left: 33%;
  }
 
+ @keyframes mob{
+  to {width: 100%;}
+}
+
  .scroll{
   height: 5px;
   width: 0%;
@@ -2230,6 +2242,10 @@ ul{
   transform-origin: left;
   animation: mob linear;
   animation-timeline: scroll();
+}
+
+@keyframes mob{
+  to {width: 100%;}
 }
  .span{
   display: none;
@@ -2313,6 +2329,10 @@ ul{
     transform-origin: left;
     animation: mob linear;
     animation-timeline: scroll();
+  }
+
+  @keyframes mob{
+    to {width: 100%;}
   }
 
 }
