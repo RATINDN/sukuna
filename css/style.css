@@ -1838,7 +1838,17 @@ del{
   font-size: smaller;
  }
 
- 
+ .scroll{
+  height: 5px;
+  width: 0%;
+  position: fixed;
+  top: 53px;
+  background-color: black;
+  z-index: 1;
+  transform-origin: left;
+  animation: mob linear;
+  animation-timeline: scroll();
+}
 
  
 .move{
@@ -2039,6 +2049,18 @@ ul{
     left: 28%;
  }
 
+ .scroll{
+  height: 5px;
+  width: 0%;
+  position: fixed;
+  top: 53px;
+  background-color: black;
+  z-index: 1;
+  transform-origin: left;
+  animation: mob linear;
+  animation-timeline: scroll();
+}
+
  .swiper-slide{
   width: 48% !important;
  }
@@ -2131,7 +2153,17 @@ input[type="text"]:focus {
   left: 33%;
  }
 
- 
+ .scroll{
+  height: 5px;
+  width: 0%;
+  position: fixed;
+  top: 53px;
+  background-color: black;
+  z-index: 1;
+  transform-origin: left;
+  animation: mob linear;
+  animation-timeline: scroll();
+}
 
 
 ul{
@@ -2188,7 +2220,17 @@ ul{
   .mode{
     left: 30%;
  }
-
+ .scroll{
+  height: 5px;
+  width: 0%;
+  position: fixed;
+  top: 53px;
+  background-color: black;
+  z-index: 1;
+  transform-origin: left;
+  animation: mob linear;
+  animation-timeline: scroll();
+}
  .span{
   display: none;
  }
@@ -2261,7 +2303,17 @@ ul{
     
    }
 
-   
+   .scroll{
+    height: 5px;
+    width: 0%;
+    position: fixed;
+    top: 53px;
+    background-color: black;
+    z-index: 1;
+    transform-origin: left;
+    animation: mob linear;
+    animation-timeline: scroll();
+  }
 
 }
 
