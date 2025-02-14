@@ -229,13 +229,9 @@ ul{
   background-color: black;
   z-index: 1;
   transform-origin: left;
-  animation: mob linear;
-  animation-timeline: scroll();
 }
 
-@keyframes mob{
-  to {width: 100%;}
-}
+
 
 .bow
 {
