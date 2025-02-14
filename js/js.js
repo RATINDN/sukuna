@@ -27,14 +27,20 @@
     }
     )
   
-    window.addEventListener('scroll', function() {
-      const scrollBar = document.getElementById('scroll');
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-      const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-      scrollBar.style.width = scrollPercentage + '%';
-    });
+
+    // Fallback JavaScript for unsupported browsers
+if (!CSS.supports('animation-timeline', 'scroll()')) {
+  window.addEventListener('scroll', function() {
+    const scrollBar = document.querySelector('.scroll');
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    scrollBar.style.width = scrollPercentage + '%';
+  });
+}
+    
+
 
 
 //   function closetoggleMenu(){

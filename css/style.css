@@ -221,15 +221,37 @@ ul{
 }
 
 
-.scroll{
+.scroll {
   height: 5px;
-  width: 0%;
+  width: 100%;
   position: fixed;
   top: 53px;
   background-color: black;
-  z-index: 1;
+  z-index: 2;
   transform-origin: left;
+  scale: 0 1;
+
+  /* CSS Scroll-driven Animation (for supported browsers) */
+  animation: mob linear;
+  animation-timeline: scroll(root);
 }
+
+@keyframes mob {
+  to { scale: 1 1; }
+}
+
+/* JavaScript Fallback for unsupported browsers */
+@supports not (animation-timeline: scroll()) {
+  .scroll {
+    animation: none;
+    width: 0%;
+    transition: width 0.25s ease-out;
+  }
+}
+
+
+
+
 
 
 
@@ -1843,16 +1865,7 @@ del{
   font-size: smaller;
  }
 
- .scroll{
-  height: 5px;
-  width: 0%;
-  position: fixed;
-  top: 53px;
-  background-color: black;
-  z-index: 1;
-  transform-origin: left;
-  animation: mob linear;
-}
+ 
 
 
 
@@ -2059,15 +2072,7 @@ ul{
   to {width: 100%;}
 }
 
- .scroll{
-  height: 5px;
-  width: 0%;
-  position: fixed;
-  top: 53px;
-  background-color: black;
-  z-index: 1;
-  transform-origin: left;
-}
+ 
 
  .swiper-slide{
   width: 48% !important;
@@ -2163,16 +2168,6 @@ input[type="text"]:focus {
 
 
 
- .scroll{
-  height: 5px;
-  width: 0%;
-  position: fixed;
-  top: 53px;
-  background-color: black;
-  z-index: 1;
-  transform-origin: left;
-
-}
 
 
 ul{
@@ -2229,16 +2224,7 @@ ul{
   .mode{
     left: 30%;
  }
- .scroll{
-  height: 5px;
-  width: 0%;
-  position: fixed;
-  top: 53px;
-  background-color: black;
-  z-index: 1;
-  transform-origin: left;
 
-}
 
 
  .span{
@@ -2313,16 +2299,7 @@ ul{
     
    }
 
-   .scroll{
-    height: 5px;
-    width: 0%;
-    position: fixed;
-    top: 53px;
-    background-color: black;
-    z-index: 1;
-    transform-origin: left;
-    
-  }
+   
 
 
 
