@@ -1,0 +1,118 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: var(--bg-color);
+  transition: all 0.3s ease;
+}
+
+.signup-wrapper {
+  background: var(--card-bg);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  width: 100%;
+  max-width: 450px;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.signup-title {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.signup-subtitle {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.signup-btn {
+  background: var(--primary-color);
+  color: var(--bg-color);
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Vazirmatn', sans-serif;
+  font-size: 1rem;
+  transition:  0.3s ease;
+}
+
+.signup-btn:hover {
+  background: var(--primary-hover);
+  color: var(--text-color); /* Ensure hover state also has the correct color */
+}
+
+.login-section {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--secondary-text);
+}
+
+.login-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin-right: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: var(--primary-hover);
+}
+
+:root {
+  --bg-color: #ffffff; 
+  --text-color: #000000; 
+  --label-color: #000000;
+  --secondary-text: #555555; 
+  --card-bg: #ffffff; 
+  --border-color: #dddddd; 
+  --input-bg: #ffffff; 
+  --primary-color: #000000; 
+  --primary-hover: #333333; 
+}
+
+.darkmode {
+  --bg-color: #000000; 
+  --text-color: #ffffff; 
+  --label-color: #ffffff;
+  --secondary-text: #aaaaaa; 
+  --card-bg: #111111; 
+  --border-color: #333333; 
+  --input-bg: #111111; 
+  --primary-color: #ffffff; 
+  --primary-hover: #cccccc; 
+}
+
+#moon2 {
+  color: var(--primary-color);
+}
+
+#sun2 {
+  color: var(--primary-color);
+}
+
+.darkmode #moon2 {
+  color: var(--primary-color);
+}
+
+
+
+.darkmode #sun2 {
+  color: var(--primary-color);
+}
+

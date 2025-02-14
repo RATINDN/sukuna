@@ -30,15 +30,7 @@
 
 
 
-function toggleMenu(){
-  menuBox.style.display ="flex" ;
-  menuBox2.style.display ="flex";
-  menuBox2.style.transition ="0.5s ease-in-out";
-  menuBox2.style.height ="100%";
-  body.style.overflow ="hidden";
-}
-
-  //  function closetoggleMenu(){
+//   function closetoggleMenu(){
   // menuBox.style.display ="none";
   // menuBox2.style.transition ="0.5s ease-in-out";
   // menuBox2.style.height ="0";
@@ -87,8 +79,9 @@ function closeNav() {
 
 
 const openmenu = document.getElementById("openmenu")
-const body = document.getElementById('body' );  
+const body = document.body;  
 const mobile = document.getElementById('parent-mobile' );  
+openmenu.addEventListener('dblclick', closeNav2);
 
 
 
@@ -149,8 +142,6 @@ function darkmode(){
   const boxing5 = document.getElementById("boxing5");
   const boxing6 = document.getElementById("boxing6");
   const boxing7 = document.getElementById("boxing7");
-
-
 
 
 
@@ -228,13 +219,14 @@ var swiper = new Swiper(".mySwiper", {
 
 
 
-window.addEventListener("load", function () {
-  document.getElementById("container20").style.display = "none";
-  const load = document.getElementById("container-load")
 
-  load.style.width = "100%"
-  load.style.height = "0"
 
+window.addEventListener("load", function() {
+  const loader = document.getElementById('container-load');
+  loader.style.opacity = '0';
+  setTimeout(() => {
+    loader.style.display = 'none';
+  }, 500); 
 });
 
 

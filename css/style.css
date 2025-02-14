@@ -84,7 +84,7 @@
 }
 
 .const-box{
-color: white !important ;
+color: white  !important;
 }
 
 
@@ -154,8 +154,7 @@ nav{
 }
 
 #h6{
-  padding-left: 5px;
-}
+padding-right: 5px;}
 
 a{
   text-decoration: none;
@@ -340,7 +339,10 @@ ul{
   transition: width .3s;
 } */
 
-.register{
+.register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80%;
   height: 80%;
   background-color: black;
@@ -350,10 +352,14 @@ ul{
   font-size: small;
   border-radius: 8px;
   border: none;
+  text-align: center;
+  line-height: 80%; /* Adjust this value to vertically center the text */
+  text-decoration: none;
   transition: 0.4s ease-in-out;
+  cursor: pointer;
 }
 
-.register:hover{
+.register:hover {
   border: 1px solid black !important;
   background-color: white;
   color: black;
@@ -701,6 +707,7 @@ overflow: hidden;
   /* display: none; */
   font-size: small !important;
   position: relative;
+  color: black ;
 
   width: 46%;
   height: 100%;
@@ -806,6 +813,8 @@ overflow: hidden;
     transition: 0.3s ease-in-out;
   
   }
+
+  
 
 
 .box{
