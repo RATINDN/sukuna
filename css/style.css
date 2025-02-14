@@ -1852,12 +1852,9 @@ del{
   z-index: 1;
   transform-origin: left;
   animation: mob linear;
-  animation-timeline: scroll();
 }
 
-@keyframes mob{
-  to {width: 100%;}
-}
+
 
  
 .move{
@@ -2070,8 +2067,6 @@ ul{
   background-color: black;
   z-index: 1;
   transform-origin: left;
-  animation: mob linear;
-  animation-timeline: scroll();
 }
 
  .swiper-slide{
@@ -2166,9 +2161,7 @@ input[type="text"]:focus {
   left: 33%;
  }
 
- @keyframes mob{
-  to {width: 100%;}
-}
+
 
  .scroll{
   height: 5px;
@@ -2178,8 +2171,7 @@ input[type="text"]:focus {
   background-color: black;
   z-index: 1;
   transform-origin: left;
-  animation: mob linear;
-  animation-timeline: scroll();
+
 }
 
 
@@ -2245,13 +2237,10 @@ ul{
   background-color: black;
   z-index: 1;
   transform-origin: left;
-  animation: mob linear;
-  animation-timeline: scroll();
+
 }
 
-@keyframes mob{
-  to {width: 100%;}
-}
+
  .span{
   display: none;
  }
@@ -2332,13 +2321,10 @@ ul{
     background-color: black;
     z-index: 1;
     transform-origin: left;
-    animation: mob linear;
-    animation-timeline: scroll();
+    
   }
 
-  @keyframes mob{
-    to {width: 100%;}
-  }
+
 
 }
 
