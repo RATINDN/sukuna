@@ -229,24 +229,8 @@ ul{
   background-color: black;
   z-index: 2;
   transform-origin: left;
-  scale: 0 1;
-
-  /* CSS Scroll-driven Animation (for supported browsers) */
-  animation: mob linear;
-  animation-timeline: scroll(root);
-}
-
-@keyframes mob {
-  to { scale: 1 1; }
-}
-
-/* JavaScript Fallback for unsupported browsers */
-@supports not (animation-timeline: scroll()) {
-  .scroll {
-    animation: none;
-    width: 0%;
-    transition: width 0.25s ease-out;
-  }
+  transform: scaleX(0); /* Start fully collapsed */
+  transition: transform 0.25s ease-in-out;
 }
 
 
@@ -1053,7 +1037,7 @@ opacity: 0.9;
   transition: 0.4s ease-in-out;
 }
 
-#move{
+.detail{
   position: relative;
   bottom:350px;
   animation:an 3s;
@@ -2048,7 +2032,7 @@ ul{
   display:none;
 }
 
-#move{
+.detail{
   bottom: 250px !important;
 }
 

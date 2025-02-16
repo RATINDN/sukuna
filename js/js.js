@@ -1,49 +1,47 @@
-  const menuBox = document.getElementById('menu-box' ); 
-  const menuBox2 = document.getElementById('overlay2' );  
-  const li1 = document.getElementById("li1");
+const menuBox = document.getElementById('menu-box'); 
+const menuBox2 = document.getElementById('overlay2');  
+const li1 = document.getElementById("li1");
+const anotherButton = document.getElementById("move"); 
 
-  let ismenu=true;
-  li1.addEventListener('click' ,()=>
-    {
-      menuBox.style.display ="flex" ;
-  menuBox2.style.display ="flex";
-  menuBox2.style.transition ="0.5s ease-in-out";
-  menuBox2.style.height ="100%";
-  body.style.overflow ="hidden";
-  
 
-  if(ismenu){
-    ismenu=false;
-  }
-
-  else {
-    menuBox.style.display ="none";
-    menuBox2.style.transition ="0.5s ease-in-out";
-    menuBox2.style.height ="0";
-    body.style.overflow ="visible";
-    ismenu=true;
-
-  }
-    }
-    )
-  
-
-    // Fallback JavaScript for unsupported browsers
-if (!CSS.supports('animation-timeline', 'scroll()')) {
-  window.addEventListener('scroll', function() {
-    const scrollBar = document.querySelector('.scroll');
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
-    scrollBar.style.width = scrollPercentage + '%';
-  });
+function openMenu() {
+  menuBox.style.display = "flex";
+  menuBox2.style.display = "flex";
+  menuBox2.style.transition = "0.5s ease-in-out";
+  menuBox2.style.height = "100%";
+  body.style.overflow = "hidden";
 }
+
+function closeMenu() {
+  menuBox.style.display = "none";
+  menuBox2.style.transition = "0.5s ease-in-out";
+  menuBox2.style.height = "0";
+  body.style.overflow = "visible";
+}
+
+
+
+li1.addEventListener('click', openMenu);
+anotherButton.addEventListener('click', openMenu);
+
+li1.addEventListener('dblclick', closeMenu);
+anotherButton.addEventListener('dblclick', closeMenu); 
+  
+
+    window.addEventListener('scroll', function() {
+      const scrollBar = document.querySelector('.scroll');
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
+      
+      scrollBar.style.transform = `scaleX(${scrollPercentage})`;
+    });
     
 
 
 
-//   function closetoggleMenu(){
+  // function closetoggleMenu(){
   // menuBox.style.display ="none";
   // menuBox2.style.transition ="0.5s ease-in-out";
   // menuBox2.style.height ="0";
