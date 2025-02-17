@@ -4,12 +4,16 @@ const li1 = document.getElementById("li1");
 const anotherButton = document.getElementById("move"); 
 
 
+
+let ismenu = true;
+
 function openMenu() {
   menuBox.style.display = "flex";
   menuBox2.style.display = "flex";
   menuBox2.style.transition = "0.5s ease-in-out";
   menuBox2.style.height = "100%";
   body.style.overflow = "hidden";
+  ismenu = false;
 }
 
 function closeMenu() {
@@ -17,15 +21,41 @@ function closeMenu() {
   menuBox2.style.transition = "0.5s ease-in-out";
   menuBox2.style.height = "0";
   body.style.overflow = "visible";
+  ismenu = true;
 }
 
 
 
+
 li1.addEventListener('click', openMenu);
-anotherButton.addEventListener('click', openMenu);
+anotherButton.addEventListener('click', openMenu); // Add event listener to the new button
 
 li1.addEventListener('dblclick', closeMenu);
-anotherButton.addEventListener('dblclick', closeMenu); 
+anotherButton.addEventListener('dblclick', closeMenu);
+
+// let ismenu = true;
+
+// function toggleMenu() {
+
+//   menuBox.style.display = "flex";
+//   menuBox2.style.display = "flex";
+//   menuBox2.style.transition = "0.5s ease-in-out";
+//   menuBox2.style.height = "100%";
+//   body.style.overflow = "hidden";
+
+//   if (ismenu) {
+//     ismenu = false;
+//   } else {
+//     menuBox.style.display = "none";
+//     menuBox2.style.transition = "0.5s ease-in-out";
+//     menuBox2.style.height = "0";
+//     body.style.overflow = "visible";
+//     ismenu = true;
+//   }
+// }
+
+// li1.addEventListener('click', toggleMenu);
+// anotherButton.addEventListener('click', toggleMenu); // Add event listener to the new button
   
 
     window.addEventListener('scroll', function() {
@@ -35,6 +65,7 @@ anotherButton.addEventListener('dblclick', closeMenu);
       const clientHeight = document.documentElement.clientHeight;
       const scrollPercentage = scrollTop / (scrollHeight - clientHeight);
       
+      // Use transform for better performance
       scrollBar.style.transform = `scaleX(${scrollPercentage})`;
     });
     
@@ -153,6 +184,10 @@ function darkmode(){
   const boxing5 = document.getElementById("boxing5");
   const boxing6 = document.getElementById("boxing6");
   const boxing7 = document.getElementById("boxing7");
+  const search_box = document.getElementById("search-box")
+  const search=document.getElementById("search")
+  const search_box_2 = document.getElementById("search-box-2")
+  const search_2 = document.querySelector(".search-input")
 
 
 
@@ -187,6 +222,11 @@ boxing4.classList.toggle("const-box");
 boxing5.classList.toggle("const-box");
 boxing6.classList.toggle("const-box");
 boxing7.classList.toggle("const-box");
+search_box.classList.toggle("const-search")
+search.classList.toggle("const-search-mode")
+search_box_2.classList.toggle("const-search")
+search_2.classList.toggle("const-search-mode")
+
 
 
 

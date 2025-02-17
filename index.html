@@ -13,6 +13,13 @@
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" --> 
 </head>
 <body style="background-color: ghostwhite;  " aria-disabled="true" id="body" >
+  <style>
+    ::-webkit-search-cancel-button{
+      background: url('images/x-lg.svg ') no-repeat center center ;
+      color: gray !important;
+
+    }
+  </style>
 
   <div class="container-load" id="container-load">
     <span class="container20" id="container20" >
@@ -101,6 +108,11 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16" class="down">
                 <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
               </svg>
+
+              <div class="search" id="search-box">
+
+            <input type="search" name="" placeholder="جستجو...." id="search">
+          </div>
           
               <div class="parent">
                 <!-- خودرو ۱ -->
@@ -218,8 +230,8 @@
 
 
 
-
-    <!-- <div class="box" >
+<!-- 
+    <div class="box" >
 
       <div class="box-2" style="height: 90%; border-radius: 15px; background-image: url(images/6.webp);">
       <a href="" style="width: 100%;"> <div class="child"><h1 style=" font-weight: 400;" >+</h1></div></a>
@@ -273,15 +285,7 @@
 
        
 
-      <!-- <div class="header" >
     
-        <span></span>
-        
-        <input type="text" id="btn-search" class="material-icons" placeholder="search"  />
-
-       
-       
-      </div> -->
 
       
       <div class="bow" id="bow">
@@ -290,6 +294,10 @@
   </nav>
 
   <div class="menu" id="openmenu">
+    <div class="search search-mobile" id="search-box-2">
+
+      <input type="search" name="" placeholder="جستجو...." id="search-2" class="search-input">
+    </div>    
     <div class="parent-mobile" id="parent-mobile">
       <!-- خودرو ۱ -->
       <div class="box-mobile" id="boxing1">
@@ -306,6 +314,7 @@
           </div>
         </div>
       </div>
+      
   
       <!-- خودرو ۲ -->
       <div class="box-mobile" id="boxing2">

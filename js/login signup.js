@@ -34,9 +34,7 @@ window.addEventListener('load', () => {
   }
 });
 
-// if (localStorage.getItem("darkMode") === "true") {
-//   document.body.classList.add("darkmode");
-// }
+//  Path: js/js.js
 
 window.addEventListener("load", function() {
   const loader = document.getElementById('container-load');
