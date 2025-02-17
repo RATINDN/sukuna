@@ -282,7 +282,47 @@ window.addEventListener("load", function() {
 
 
 
+ 
 
+document.getElementById("search").addEventListener("input", function() {
+
+  const query = this.value.toLowerCase();
+  const listItems = document.querySelectorAll('h4');
+  const box= document.querySelectorAll('.box');
+  
+  for (let i = 0; i < listItems.length; i++) {
+    const item = listItems[i];
+    const Car = box[i];
+    if (!item.textContent.toLowerCase().includes(query)) {
+      item.style.display = 'none';
+      Car.style.display = 'none';
+    } else {
+      item.style.display = 'block';
+      Car.style.display = '';
+    }
+  }
+
+});
+
+document.getElementById("search-mobile").addEventListener("input", function() {
+
+  const query = this.value.toLowerCase();
+  const listItems = document.querySelectorAll('h4');
+  const box= document.querySelectorAll('.box-mobile');
+  
+  for (let i = 0; i < listItems.length; i++) {
+    const item = listItems[i];
+    const Car = box[i];
+    if (!item.textContent.toLowerCase().includes(query)) {
+      item.style.display = 'none';
+      Car.style.display = 'none';
+    } else {
+      item.style.display = 'block';
+      Car.style.display = '';
+    }
+  }
+
+});
 
 
 
