@@ -8,12 +8,14 @@ function darkmode() {
   const moon = document.getElementById("moon2");
   const sun = document.getElementById("sun2");
 
-  if (isDark) {
-    moon.style.display = "none";
-    sun.style.display = "block";
-  } else {
-    moon.style.display = "block";
-    sun.style.display = "none";
+  if (moon && sun) {
+    if (isDark) {
+      moon.style.display = "none";
+      sun.style.display = "block";
+    } else {
+      moon.style.display = "block";
+      sun.style.display = "none";
+    }
   }
 }
 
@@ -25,12 +27,16 @@ window.addEventListener('load', () => {
 
   if (isDark) {
     body.classList.add("darkmode");
-    moon.style.display = "none";
-    sun.style.display = "block";
+    if (moon && sun) {
+      moon.style.display = "none";
+      sun.style.display = "block";
+    }
   } else {
     body.classList.remove("darkmode");
-    moon.style.display = "block";
-    sun.style.display = "none";
+    if (moon && sun) {
+      moon.style.display = "block";
+      sun.style.display = "none";
+    }
   }
 });
 
