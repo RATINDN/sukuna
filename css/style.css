@@ -164,7 +164,7 @@ nav{
  display: flex;
  justify-content: space-between;
  align-items: center;
- z-index: 2;
+ z-index: 8;
 
 
 }
@@ -574,7 +574,7 @@ background-color: black;
   position: fixed;
   width: 100%;
   height: 0;
-  z-index: 1;
+  z-index: 6;
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.5s ease-in-out;
 }
@@ -1798,14 +1798,59 @@ del{
   transition: 0.5s ease-in-out;
 }
 
+.page-up{
+  position: fixed;
+  height: 50px ;
+  width: 0;
+  transition: 0.5s ease-in-out;
+  background-color: black;
+  bottom: 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5 ;
+  cursor: pointer;
+  border-radius: 15px 0 0 0 ;
+}
+
+.const-page-up{
+  color: black;
+  background-color: white;
+}
 
 
 
+#lorem {
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
 
+#lorem2 {
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
 
+#lorem3 {
+  transition: all 0.5s ease-in-out;
+  opacity: 1;
+}
 
+#lorem.hidden {
+  opacity: 0;
+}
 
+#lorem2.hidden {
+  opacity: 0;
+}
 
+#lorem3.hidden {
+  opacity: 0;
+}
+
+.button2 {
+  transition: all 0.3s ease-in-out;
+}
 
 
 

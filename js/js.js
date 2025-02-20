@@ -279,7 +279,6 @@ function darkmode() {
 
   const isDark = element.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark);
-
   sun.classList.toggle("const-sun");
   moon.classList.toggle("const-moon");
   nav.classList.toggle("dark-mode");
@@ -489,13 +488,106 @@ document.getElementById("search-mobile").addEventListener("input", function() {
 
 
 
+window.addEventListener('scroll', function() {
+  const pageUpButton = document.querySelector('.page-up');
+  if (window.scrollY > 150) {   
+    pageUpButton.style.width = '50px';
+  } else {
+    pageUpButton.style.width = '0';
+  }
+});
+
+document.querySelector('.page-up').addEventListener('click', function() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'    
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const lorem = document.getElementById("lorem");
+  const buttonRead2 = document.getElementById("button-read2");
+  const defaultText = lorem.innerHTML; // ذخیره متن پیش‌فرض
+  let isDefault = true; // وضعیت پیش‌فرض
+
+  if (buttonRead2) {
+    buttonRead2.addEventListener('click', function() {
+      if (isDefault) {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML += " ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی";
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead2.textContent = "بستن"; // تغییر متن دکمه به "بستن"
+      } else {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML = defaultText; // بازگرداندن به متن پیش‌فرض
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead2.textContent = "مطالعه بیشتر"; // تغییر متن دکمه به "مطالعه بیشتر"
+      }
+      isDefault = !isDefault; // تغییر وضعیت
+    });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const lorem = document.getElementById("lorem2");
+  const buttonRead3 = document.getElementById("button-read3");
+  const defaultText = lorem.innerHTML; // ذخیره متن پیش‌فرض
+  let isDefault = true; // وضعیت پیش‌فرض
+
+  if (buttonRead3) {
+    buttonRead3.addEventListener('click', function() {
+      if (isDefault) {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML += " ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی";
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead3.textContent = "بستن"; // تغییر متن دکمه به "بستن"
+      } else {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML = defaultText; // بازگرداندن به متن پیش‌فرض
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead3.textContent = "مطالعه بیشتر"; // تغییر متن دکمه به "مطالعه بیشتر"
+      }
+      isDefault = !isDefault; // تغییر وضعیت
+    });
+  }
+});
 
 
+document.addEventListener('DOMContentLoaded', function() {
+  const lorem = document.getElementById("lorem3");
+  const buttonRead1 = document.getElementById("button-read1");
+  const defaultText = lorem.innerHTML; // ذخیره متن پیش‌فرض
+  let isDefault = true; // وضعیت پیش‌فرض
 
-
-
-
-
+  if (buttonRead1) {
+    buttonRead1.addEventListener('click', function() {
+      if (isDefault) {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML += " ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی";
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead1.textContent = "بستن"; // تغییر متن دکمه به "بستن"
+      } else {
+        lorem.classList.add('hidden');
+        setTimeout(() => {
+          lorem.innerHTML = defaultText; // بازگرداندن به متن پیش‌فرض
+          lorem.classList.remove('hidden');
+        }, 500);
+        buttonRead1.textContent = "مطالعه بیشتر"; // تغییر متن دکمه به "مطالعه بیشتر"
+      }
+      isDefault = !isDefault; // تغییر وضعیت
+    });
+  }
+});
 
 
 

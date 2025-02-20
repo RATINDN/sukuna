@@ -17,6 +17,11 @@
   max-width: 450px;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
 
 
 .mon {
@@ -215,3 +220,9 @@
   color: var(--primary-color);
 }
 
+@media (max-width: 480px) {
+  .signup-wrapper {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+}
