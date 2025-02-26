@@ -592,7 +592,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+const faviconLink = document.createElement('link');
+faviconLink.rel = 'icon';
+faviconLink.href = 'images/favicon (1).ico'; 
+faviconLink.type = 'image/x-icon';
 
+document.head.appendChild(faviconLink);
 
 
 

@@ -49,6 +49,15 @@ window.addEventListener("load", function() {
     loader.style.display = 'none';
   }, 500);
 });
+
+const faviconLink = document.createElement('link');
+faviconLink.rel = 'icon';
+faviconLink.href = 'images/favicon (1).ico'; 
+faviconLink.type = 'image/x-icon';
+
+document.head.appendChild(faviconLink);
+
+
 // document.getElementById('signup-form').addEventListener('submit', function(event) {
 //   event.preventDefault(); // جلوگیری از ارسال فرم
 
