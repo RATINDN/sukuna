@@ -44,6 +44,8 @@ function toggleMenu() {
   menuBox2.style.height = "100%";
   body.style.overflow = "hidden";
   bi_down.style.transform = "rotate(180deg)";
+  li1.style.backgroundColor = "rgba(0, 0, 0, 0.13)";
+  li1.style.borderBottom = li1;
 
   if (ismenu) {
     ismenu = false;
@@ -54,6 +56,8 @@ function toggleMenu() {
     body.style.overflow = "visible";
     ismenu = true;
     bi_down.style.transform = "rotate(0deg)";
+    li1.style.backgroundColor = "rgba(0, 0, 0, 0)";
+
   }
 }
 

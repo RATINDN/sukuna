@@ -406,7 +406,7 @@ input[type="text"] {
 
 .li1:hover{
 transition: 0.5s;
- background-color: rgba(0, 0, 0, 0.13);
+ background-color: rgba(0, 0, 0, 0.13) !important;
   /* height: 57px; */
  
    
