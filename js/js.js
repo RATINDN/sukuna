@@ -5,57 +5,57 @@ const anotherButton = document.getElementById("move");
 
 
 
-let ismenu = true;
-
-function openMenu() {
-  menuBox.style.display = "flex";
-  menuBox2.style.display = "flex";
-  menuBox2.style.transition = "0.5s ease-in-out";
-  menuBox2.style.height = "100%";
-  body.style.overflow = "hidden";
-  ismenu = false;
-}
-
-function closeMenu() {
-  menuBox.style.display = "none";
-  menuBox2.style.transition = "0.5s ease-in-out";
-  menuBox2.style.height = "0";
-  body.style.overflow = "visible";
-  ismenu = true;
-}
-
-
-
-
-li1.addEventListener('click', openMenu);
-anotherButton.addEventListener('click', openMenu); // Add event listener to the new button
-
-li1.addEventListener('dblclick', closeMenu);
-anotherButton.addEventListener('dblclick', closeMenu);
-
 // let ismenu = true;
 
-// function toggleMenu() {
-
+// function openMenu() {
 //   menuBox.style.display = "flex";
 //   menuBox2.style.display = "flex";
 //   menuBox2.style.transition = "0.5s ease-in-out";
 //   menuBox2.style.height = "100%";
 //   body.style.overflow = "hidden";
-
-//   if (ismenu) {
-//     ismenu = false;
-//   } else {
-//     menuBox.style.display = "none";
-//     menuBox2.style.transition = "0.5s ease-in-out";
-//     menuBox2.style.height = "0";
-//     body.style.overflow = "visible";
-//     ismenu = true;
-//   }
+//   ismenu = false;
 // }
 
-// li1.addEventListener('click', toggleMenu);
-// anotherButton.addEventListener('click', toggleMenu); // Add event listener to the new button
+// function closeMenu() {
+//   menuBox.style.display = "none";
+//   menuBox2.style.transition = "0.5s ease-in-out";
+//   menuBox2.style.height = "0";
+//   body.style.overflow = "visible";
+//   ismenu = true;
+// }
+
+
+
+
+// li1.addEventListener('click', openMenu);
+// anotherButton.addEventListener('click', openMenu); // Add event listener to the new button
+
+// li1.addEventListener('dblclick', closeMenu);
+// anotherButton.addEventListener('dblclick', closeMenu);
+
+let ismenu = true;
+
+function toggleMenu() {
+
+  menuBox.style.display = "flex";
+  menuBox2.style.display = "flex";
+  menuBox2.style.transition = "0.5s ease-in-out";
+  menuBox2.style.height = "100%";
+  body.style.overflow = "hidden";
+
+  if (ismenu) {
+    ismenu = false;
+  } else {
+    menuBox.style.display = "none";
+    menuBox2.style.transition = "0.5s ease-in-out";
+    menuBox2.style.height = "0";
+    body.style.overflow = "visible";
+    ismenu = true;
+  }
+}
+
+li1.addEventListener('click', toggleMenu);
+anotherButton.addEventListener('click', toggleMenu); // Add event listener to the new button
   
 
     window.addEventListener('scroll', function() {
