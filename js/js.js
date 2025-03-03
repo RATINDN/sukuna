@@ -2,6 +2,7 @@ const menuBox = document.getElementById('menu-box');
 const menuBox2 = document.getElementById('overlay2');  
 const li1 = document.getElementById("li1");
 const anotherButton = document.getElementById("move"); 
+const bi_down = document.getElementById("bi-down");
 
 
 
@@ -42,6 +43,7 @@ function toggleMenu() {
   menuBox2.style.transition = "0.5s ease-in-out";
   menuBox2.style.height = "100%";
   body.style.overflow = "hidden";
+  bi_down.style.transform = "rotate(180deg)";
 
   if (ismenu) {
     ismenu = false;
@@ -51,6 +53,7 @@ function toggleMenu() {
     menuBox2.style.height = "0";
     body.style.overflow = "visible";
     ismenu = true;
+    bi_down.style.transform = "rotate(0deg)";
   }
 }
 
@@ -131,7 +134,7 @@ closee.addEventListener('click', closeNav2);
 
 
 function opencar() {
-  openmenu.style.height = "100%";
+  openmenu.style.height = "100vh";
   openmenu.style.width = "100%";
   mobile.style.height = "300px";
   mobile.style.width = "90%";
