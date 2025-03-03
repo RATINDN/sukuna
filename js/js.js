@@ -119,11 +119,11 @@ function closeNav() {
 
 
 
-
+const closee = document.getElementById("close")
 const openmenu = document.getElementById("openmenu")
 const body = document.body;  
 const mobile = document.getElementById('parent-mobile' );  
-openmenu.addEventListener('dblclick', closeNav2);
+closee.addEventListener('click', closeNav2);
 
 
 

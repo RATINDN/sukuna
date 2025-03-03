@@ -650,13 +650,13 @@ align-items: center;
 
  .search-mobile{
   display: flex;
+  gap: 5px;
   justify-content: center;
   align-items: start;
   position: sticky;
   color: black;
   position: -webkit-sticky;
-    width: 0%;
-  height: 0%;
+  
   background: rgba(255, 255, 255, 0.635);
   z-index: 1;
   top: 0;
@@ -665,6 +665,28 @@ align-items: center;
   width: 100%;
   height: 10%;
  }
+ .close {
+  position: relative; /* or relative, depending on your layout */
+cursor: pointer;
+  width: 10%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensure it is above other elements */
+}
+
+.arrow-close{
+  color: white;
+  transition: 0.4s ease-in-out;
+}
+
+.close:hover .arrow-close{
+  color: red;
+  transition: 0.4s ease-in-out;
+}
 
  .search-input{
   display: none;
