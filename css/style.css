@@ -723,6 +723,7 @@ cursor: pointer;
   display: block;
   position: sticky;
   z-index: 1;
+  border-radius: 0 !important;
   border-bottom: 1px solid black;
   border-top: none;
   border-left: none;
@@ -753,7 +754,7 @@ cursor: pointer;
   color: black;
   cursor: pointer;
   transition: 0.2s ease-in-out;
-
+border-radius: 0 !important;
   border: none;
  }
 
