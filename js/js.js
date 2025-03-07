@@ -144,6 +144,7 @@ function opencar() {
   mobile.style.height = "300px";
   mobile.style.width = "90%";
   select.style.display = "flex";
+  select.style.paddingRight = "10px";
   
 
   body.style.overflow= " hidden ";
