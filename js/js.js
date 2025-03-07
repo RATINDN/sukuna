@@ -143,7 +143,7 @@ function opencar() {
   openmenu.style.width = "100%";
   mobile.style.height = "300px";
   mobile.style.width = "90%";
-  select.style.display = "block";
+  select.style.display = "flex";
   
 
   body.style.overflow= " hidden ";

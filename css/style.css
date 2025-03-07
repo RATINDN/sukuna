@@ -820,7 +820,7 @@ overflow: auto;
   
 }
 .select{
-  display: block;
+  display: flex !important;
 }
 }
 
@@ -1924,6 +1924,8 @@ del{
   border-bottom: 1px solid black;
   /* border-right: 1px solid black; */
   outline: none;
+  justify-content: center !important;
+  align-items: center !important;
   overflow: auto;
   cursor: pointer;
   color: gray;
