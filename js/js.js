@@ -130,6 +130,7 @@ const closee = document.getElementById("close")
 const openmenu = document.getElementById("openmenu")
 const body = document.body;  
 const mobile = document.getElementById('parent-mobile' );  
+const select = document.getElementById('brand-filter-mobile' );
 closee.addEventListener('click', closeNav2);
 
 
@@ -142,7 +143,8 @@ function opencar() {
   openmenu.style.width = "100%";
   mobile.style.height = "300px";
   mobile.style.width = "90%";
- 
+  select.style.display = "block";
+  
 
   body.style.overflow= " hidden ";
 
@@ -156,6 +158,7 @@ function closeNav2() {
   openmenu.style.width = "0%";
   mobile.style.height = "0";
   mobile.style.width = "0";
+  select.style.display = "none";
 
   body.style.overflow = "  visible";
 
@@ -255,6 +258,10 @@ const mode2 = document.getElementById('mode2' );
 
 function darkmode() {
   const element = document.body;
+  const brandFilter = document.getElementById('brand-filter');
+  const brandFilter_mobile = document.getElementById('brand-filter-mobile');
+
+
   const myMenu = document.getElementById('myMenu');
   const nav = document.getElementById('nav');
   const bow = document.getElementById('bow');
@@ -286,6 +293,8 @@ function darkmode() {
 
   const isDark = element.classList.toggle("dark-mode");
   localStorage.setItem("darkMode", isDark);
+  brandFilter_mobile.classList.toggle("const-select");
+  brandFilter.classList.toggle("const-select");
   sun.classList.toggle("const-sun");
   moon.classList.toggle("const-moon");
   nav.classList.toggle("dark-mode");
@@ -319,6 +328,9 @@ function darkmode() {
 window.addEventListener('load', () => {
   const isDark = localStorage.getItem("darkMode") === "true";
   const element = document.body;
+  const brandFilter = document.getElementById('brand-filter');
+  const brandFilter_mobile = document.getElementById('brand-filter-mobile');
+
   const nav = document.getElementById('nav');
   const bow = document.getElementById('bow');
   const reg = document.getElementById('register');
@@ -349,6 +361,8 @@ window.addEventListener('load', () => {
   const myMenu = document.getElementById('myMenu');
 
   if (isDark) {
+    brandFilter_mobile.classList.add("const-select");
+    brandFilter.classList.add("const-select");
     element.classList.add("dark-mode");
     sun.classList.add("const-sun");
     moon.classList.add("const-moon");
@@ -379,6 +393,8 @@ window.addEventListener('load', () => {
     openmenu.classList.add("const-menu"); // Apply dark mode to mobile menu
     myMenu.classList.add("dark-mode");
   } else {
+    brandFilter_mobile.classList.remove("const-select");
+    brandFilter.classList.remove("const-select");
     element.classList.remove("dark-mode");
     sun.classList.remove("const-sun");
     moon.classList.remove("const-moon");
@@ -451,42 +467,74 @@ window.addEventListener("load", function() {
  
 
 
+// document.addEventListener('DOMContentLoaded', () => {
+//   const searchInput = document.getElementById('search');
+//   const boxes = document.querySelectorAll('.box');
+
+//   searchInput.addEventListener('input', () => {
+//     const query = searchInput.value.toLowerCase();
+
+//     boxes.forEach(box => {
+//       const title = box.getAttribute('data-title').toLowerCase();
+//       if (title.includes(query)) {
+//         box.classList.remove('hide');
+//       } else { 
+//         box.classList.add('hide');
+        
+//       }
+//     });
+//   });
+// });
 document.addEventListener('DOMContentLoaded', () => {
+  const brandFilter = document.getElementById('brand-filter');
   const searchInput = document.getElementById('search');
   const boxes = document.querySelectorAll('.box');
 
-  searchInput.addEventListener('input', () => {
+  function filterCars() {
     const query = searchInput.value.toLowerCase();
+    const selectedBrand = brandFilter.value.toLowerCase();
 
     boxes.forEach(box => {
       const title = box.getAttribute('data-title').toLowerCase();
-      if (title.includes(query)) {
+      const matchesQuery = title.includes(query);
+      const matchesBrand = selectedBrand === "" || title.includes(selectedBrand);
+
+      if (matchesQuery && matchesBrand) {
         box.classList.remove('hide');
-      } else { 
+      } else {
         box.classList.add('hide');
-        
       }
     });
-  });
+  }
+
+  searchInput.addEventListener('input', filterCars);
+  brandFilter.addEventListener('change', filterCars);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('search-mobile');
+  const brandFilter = document.getElementById('brand-filter-mobile');
   const boxes = document.querySelectorAll('.box-mobile');
 
-  searchInput.addEventListener('input', () => {
+  function filterCars() {
     const query = searchInput.value.toLowerCase();
+    const selectedBrand = brandFilter.value.toLowerCase();
 
     boxes.forEach(box => {
       const title = box.getAttribute('data-title').toLowerCase();
-      if (title.includes(query)) {
+      const matchesQuery = title.includes(query);
+      const matchesBrand = selectedBrand === "" || title.includes(selectedBrand);
+
+      if (matchesQuery && matchesBrand) {
         box.classList.remove('hide');
-      } else { 
+      } else {
         box.classList.add('hide');
-        
       }
     });
-  });
+  }
+
+  searchInput.addEventListener('input', filterCars);
+  brandFilter.addEventListener('change', filterCars);
 });
 
 
