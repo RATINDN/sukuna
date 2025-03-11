@@ -1914,8 +1914,10 @@ del{
   
 }
 
+ 
+
 .select{
-  width: 10%;
+  width: auto;
   height: 70%;
   display: none;
   background-color: transparent;
@@ -1930,6 +1932,7 @@ del{
   cursor: pointer;
   color: gray;
   padding-left: 10px ;
+  direction: ltr !important;
 }
 
 
