@@ -526,7 +526,7 @@ border-left: 1px solid black;
 
 .lb{
   width: 100%;
-  height: 10%;
+  height: 70px ;
   border-bottom: 1px solid black;
   color: black;
   justify-content: start;
@@ -2320,9 +2320,7 @@ ul{
 
  
 
-    .lb{
-      height: 20% !important;
-    }
+   
 
 
    
