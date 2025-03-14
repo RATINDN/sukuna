@@ -95,13 +95,26 @@ function showError(input, message) {
   error.style.fontSize = '0.8rem';
   error.textContent = message;
   input.parentNode.appendChild(error);
+
+  const errorContainer = input.closest('.input-group').querySelector('.error-container');
+  if (errorContainer) {
+    errorContainer.appendChild(error);
+  } else {
+    input.parentNode.appendChild(error);
+  }
 }
+
+
 
 function clearError(input) {
   input.style.border = '';
   const error = input.parentNode.querySelector('.error-message');
   if (error) {
     error.remove();
+  }
+  const errorContainer = input.closest('.input-group').querySelector('.error-container');
+  if (errorContainer) {
+    errorContainer.textContent = '';
   }
 }
 
@@ -131,6 +144,40 @@ function validateInput(input) {
       showError(input, 'رمز عبور باید حداقل 8 کاراکتر باشد');
     }
   }
+
+ 
 }
 
+
+// function togglePasswordVisibility(id) {
+//   const input = document.getElementById(id);
+//   const icon = input.nextElementSibling.querySelector('svg');
+
+//   if (input.type === 'password') {
+//     input.type = 'text';
+//     icon.classList.remove('bi-eye');
+//     icon.classList.add('bi-eye-slash');
+//   } else {
+//     input.type = 'password';
+//     icon.classList.remove('bi-eye-slash');
+//     icon.classList.add('bi-eye');
+//   }
+// }
+
+function togglePasswordVisibility(id) {
+  const input = document.getElementById(id);
+  const inputGroup = input.closest('.input-group');
+  const icon = inputGroup.querySelector('.bi-eye');
+  const icon2 = inputGroup.querySelector('.bi-eye-slash');
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.style.display = 'none';
+    icon2.style.display = 'inline-block';
+  } else {
+    input.type = 'password';
+    icon.style.display = 'inline-block';
+    icon2.style.display = 'none';
+  }
+}
 

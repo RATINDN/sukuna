@@ -68,29 +68,50 @@ function showError(input, message) {
   error.style.fontSize = '0.8rem';
   error.textContent = message;
   input.parentNode.appendChild(error);
-}
 
+
+  const errorContainer = input.closest('.input-group').querySelector('.error-container');
+  if (errorContainer) {
+    errorContainer.appendChild(error);
+  } else {
+    input.parentNode.appendChild(error);
+  }
+}
 function clearError(input) {
   input.style.border = '';
   const error = input.parentNode.querySelector('.error-message');
   if (error) {
     error.remove();
   }
+  const errorContainer = input.closest('.input-group').querySelector('.error-container');
+  if (errorContainer) {
+    errorContainer.textContent = '';
+  }
 }
 
 document.querySelectorAll('.input-group input').forEach(function(input) {
   input.addEventListener('input', function() {
     clearError(input);
+    // clearError2(input);
+    
+
     validateInput(input);
+
   });
   input.addEventListener('blur', function() {
     validateInput(input);
+
   });
 });
+
 
 function validateInput(input) {
   const id = input.id;
   const value = input.value.trim();
+
+
+  
+
 
   if (id === 'fullname' && value === '') {
     showError(input, 'نام کامل الزامی است');
@@ -113,14 +134,14 @@ function validateInput(input) {
   if (id === 'password') {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (!passwordPattern.test(value)) {
-      showError(input, 'رمز عبور باید حداقل 8 کاراکتر و شامل حروف بزرگ، حروف کوچک و اعداد باشد');
+      showError(input , 'رمز عبور باید حداقل 8 کاراکتر و شامل حروف بزرگ، حروف کوچک و اعداد باشد')
     }
   }
 
   if (id === 'confirm-password') {
     const password = document.getElementById('password').value;
     if (value !== password) {
-      showError(input, 'رمز عبور و تکرار آن باید یکسان باشند');
+      showError(input , "رمز عبور و تکرار آن باید یکسان باشند")
     }
   }
 }
@@ -161,7 +182,27 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   if (isValid) {
     this.submit();
   }
+
+
+  
 });
 
 
+
+function togglePasswordVisibility(id) {
+  const input = document.getElementById(id);
+  const inputGroup = input.closest('.input-group');
+  const icon = inputGroup.querySelector('.bi-eye');
+  const icon2 = inputGroup.querySelector('.bi-eye-slash');
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.style.display = 'none';
+    icon2.style.display = 'inline-block';
+  } else {
+    input.type = 'password';
+    icon.style.display = 'inline-block';
+    icon2.style.display = 'none';
+  }
+}
 

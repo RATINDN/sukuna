@@ -124,6 +124,9 @@
   color: var(--primary-color);
 }
 
+
+
+
 @media (max-width: 480px) {
   .signup-wrapper {
     padding: 1.5rem;
