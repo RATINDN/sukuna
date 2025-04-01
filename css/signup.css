@@ -125,7 +125,13 @@
 }
 
 
+.history svg{
+  color: white !important;
+}
 
+.arrow-right , .arrow-left  {
+  fill: white !important;
+}
 
 @media (max-width: 480px) {
   .signup-wrapper {

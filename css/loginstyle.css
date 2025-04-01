@@ -249,9 +249,13 @@ display: flex;
   color: red;
   font-size: 0.8rem;
 }
+ .history svg{
+  color: white !important;
+ }
 
-
-
+ .arrow-right , .arrow-left  {
+  fill: white !important;
+}
 @media (max-width: 480px) {
   .signup-wrapper {
     padding: 1.5rem;
