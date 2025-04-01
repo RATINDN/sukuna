@@ -260,7 +260,7 @@ ul{
   height: 5px;
   width: 100%;
   position: fixed;
-  top: 53px;
+  top: 83px;
   background-color: black;
   z-index: 2;
   transform-origin: left;
@@ -443,7 +443,7 @@ transition: 0.5s;
   display: flex;
  position: fixed;
  z-index: 3;
- top: 52px;
+ top: 82px;
  /* opacity: 0; */
  /* height: 0 !important; */
  left: 33px;
@@ -508,7 +508,7 @@ transition: 0.5s;
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 1 ;
   top: 0;
   right: 0;
 background-color: white;  
@@ -637,7 +637,7 @@ align-items: center;  /* display: none; */
   display: flex;
  position: fixed;
  z-index: 3;
- top: 52px;
+ top: 82px;
  /* opacity: 0; */
  /* height: 0 !important; */
  left: 33px;
@@ -788,7 +788,7 @@ border-radius: 0 !important;
   display: flex;
  position: fixed;
  z-index: 3;
- top: 52px;
+ top: 82px;
  flex-direction: column;
  justify-content: start;
  cursor: context-menu;
@@ -1955,8 +1955,79 @@ del{
 
 
 
+.history{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  height: 30px;
+  background-color: #3b3b3b !important;
+  z-index: 8;
+  color: white !important;
+}
+.redoButton{
+border-radius: 100%;
+height: 25px;
+width: 25px;
+display: flex;
+justify-content: center;
+align-items: center;
+transition: 0.3s ease-in-out;
+
+}
+
+.redoButton:hover{
+  background-color: gray;
+  transition: 0.3s ease-in-out;
+}
+
+.backButton{
+  border-radius: 100%;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease-in-out;
+}
+
+.backButton:hover{
+  background-color: gray;
+  transition: 0.3s ease-in-out;
+}
+
+.arrow-right{
+  cursor: pointer;
+}
+
+.arrow-left{
+  cursor: pointer;
+}
 
 
+
+
+/* Default (inactive) state for buttons and their SVGs */
+/* .backButton, .redoButton { */
+  /* color: #6a6a6a; Default inactive color */
+  /* transition: color 0.3s ease; Smooth color transition */
+/* } */
+
+/* Ensure the SVG inherits the parent's color */
+/* .backButton svg, .redoButton svg { */
+  /* fill: currentColor; This is already set in the SVG, but we confirm it */
+/* } */
+
+/* Active state */
+/* .backButton.active, .redoButton.active { */
+  /* color: white; Active color */
+/* } */
+
+/* Inactive state (optional, for clarity) */
+/* .backButton.inactive, .redoButton.inactive { */
+  /* color: #6a6a6a; Inactive color */
+/* } */
 
 
 

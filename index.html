@@ -7,6 +7,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>فروشگاه خودروی لوکس</title> 
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="apple-touch-icon" href="images/icon-192x192.png">
+  <link rel="apple-touch-icon" href="images/icon-512x512.png">
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -46,16 +50,30 @@
       <div class="dot"></div>
     </span>
   </div>
+
+  <main> 
  
-  <main>  
     <div class="page-up" id="page-up">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"  fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708z"/>
       </svg>
     </div>
+    <div class="history">
+      <div class="redoButton" style="position: relative; right: 10px;">
+       
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="arrow-left"  viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+      </div>
+      <div class="backButton" style="position: relative; left: 10px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="arrow-right"  viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>
+      </div>
+    </div>
 
+    <nav id="nav" dir="ltr" style="top: 30px;">
 
-    <nav id="nav" dir="ltr">
 
     
 
@@ -297,6 +315,8 @@
          
          <li style="cursor: pointer; " class="li2" id="li2">شرکت</li>
          
+        
+         
       </ul>
 
 
@@ -320,6 +340,7 @@
         <a href="login.html" class="register" id="register">ثبت نام / ورود </a>
     
   </nav>
+ 
 
   <div class="menu" id="openmenu">
     <div class=" search-mobile" id="search-box-2">
@@ -696,6 +717,23 @@
   <script src="js/server.js"></script>
 
   <script src="js/js.js"></script>
+  <script src="install.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then((registration) => {
+            console.log('Service Worker registered:', registration);
+          })
+          .catch((error) => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+  </script>
+
+  <script src="backbutton.js"></script>
 
 
   <!-- <script src="js/login signup.js"></script> -->
