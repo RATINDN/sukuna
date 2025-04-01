@@ -2033,14 +2033,47 @@ transition: 0.3s ease-in-out;
 /* } */
 
 
+/* برای دکمه‌های غیرفعال */
+/* تضمین اولویت استایل‌های جاوااسکریپت */
+/* تضمین نمایش پیام موفقیت در حالت PWA */
 
 
 
+/* تضمین عملکرد صحیح نمایش */
+#installButton,
+#installButton2 {
+  display: flex !important;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+#installButton[hidden],
+#installButton2[hidden] {
+  display: none !important;
+  opacity: 0;
+}
+
+@media (display-mode: standalone) {
+  #installButton,
+  #installButton2 {
+    display: none !important;
+    pointer-events: none;
+  }
+}
 
 
+#installButton,
+#installButton2 {
+  display: flex !important;
+  transition: all 0.3s;
+}
 
-
-
+#installButton:not([data-visible]),
+#installButton2:not([data-visible]) {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
 
 
 
