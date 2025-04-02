@@ -1,66 +1,15 @@
-// Complete PWA Installation Handler for iOS and Android
+// Clean PWA Installation Handler (No Useless Alerts)
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Detect iOS
-function isIOS() {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-}
-
-// 2. Check if app is installed
+// 1. Installation Check
 function isPWAInstalled() {
-  // For iOS
-  if (isIOS() && navigator.standalone) return true;
-  
-  // For Android/Desktop
-  return window.matchMedia('(display-mode: standalone)').matches;
+  return window.matchMedia('(display-mode: standalone)').matches || 
+         navigator.standalone ||
+         (window.navigator.standalone !== undefined && window.navigator.standalone);
 }
 
-// 3. Show iOS Installation Instructions
-function showIOSInstallInstructions() {
-  const modal = document.createElement('div');
-  modal.innerHTML = `
-    <div style="
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.8);
-      z-index: 10000;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-family: 'Vazirmatn', sans-serif;
-      padding: 20px;
-      text-align: center;
-    ">
-      <h2>نصب اپلیکیشن در iOS</h2>
-      <ol style="text-align: right; direction: rtl;">
-        <li>از نوار پایین صفحه، دکمه "اشتراک گذاری" را انتخاب کنید</li>
-        <li>گزینه "Add to Home Screen" را انتخاب نمایید</li>
-        <li>در مرحله بعد روی "Add" کلیک کنید</li>
-      </ol>
-      <button style="
-        padding: 10px 20px;
-        background: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        margin-top: 20px;
-        font-size: 16px;
-      ">متوجه شدم</button>
-    </div>
-  `;
-  
-  modal.querySelector('button').onclick = () => modal.remove();
-  document.body.appendChild(modal);
-}
-
-// 4. Success Popup
+// 2. Success Popup
 function showSuccessPopup() {
   const popup = document.createElement('div');
   popup.innerHTML = `
@@ -76,18 +25,35 @@ function showSuccessPopup() {
       z-index: 1000;
       font-family: 'Vazirmatn', sans-serif;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
     ">
       نصب با موفقیت انجام شد!
     </div>
   `;
   
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { top: -50px; opacity: 0; }
+      to { top: 20px; opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+  `;
+  
+  document.head.appendChild(style);
   document.body.appendChild(popup);
-  setTimeout(() => popup.remove(), 3000);
+  
+  setTimeout(() => {
+    popup.remove();
+    style.remove();
+  }, 3000);
 }
 
-// 5. Manage install buttons
+// 3. Button Visibility Management
 function manageInstallButtons() {
-  const shouldHide = isPWAInstalled();
+  const shouldHide = isPWAInstalled() || !deferredPrompt;
   
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
@@ -98,24 +64,21 @@ function manageInstallButtons() {
   });
 }
 
-// 6. Handle installation
-function handleInstallation() {
-  if (isIOS()) {
-    showIOSInstallInstructions();
-  } else if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if (choice.outcome === 'accepted') {
-        showSuccessPopup();
-      }
-      deferredPrompt = null;
-    });
-  } else {
-    alert('برای نصب، از منوی مرورگر استفاده کنید');
-  }
+// 4. Installation Flow (No Useless Alerts)
+function showInstallPrompt() {
+  if (!deferredPrompt) return;
+  
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(choice => {
+    if (choice.outcome === 'accepted') {
+      showSuccessPopup();
+    }
+    deferredPrompt = null;
+    manageInstallButtons();
+  });
 }
 
-// 7. Event Listeners
+// 5. Event Listeners
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -127,19 +90,17 @@ window.addEventListener('appinstalled', () => {
   manageInstallButtons();
 });
 
-// 8. Initialize
+// 6. Initialization
 document.addEventListener('DOMContentLoaded', () => {
   // Setup install buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) {
-      btn.onclick = handleInstallation;
-    }
+    if (btn) btn.onclick = showInstallPrompt;
   });
   
   // Initial check
   manageInstallButtons();
   
-  // Check periodically (every 2 seconds)
-  setInterval(manageInstallButtons, 2000);
+  // Periodic checks (optional)
+  setInterval(manageInstallButtons, 1000);
 });
