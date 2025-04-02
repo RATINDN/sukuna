@@ -1,6 +1,6 @@
 {
   "name": "فروشگاه خودروی لوکس",
-  "short_name": "PWA Test",
+  "short_name": "خودروی لوکس",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
