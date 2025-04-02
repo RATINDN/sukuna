@@ -1,53 +1,53 @@
-// Reliable PWA Installation Handler
+// Smart PWA Installation Handler
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Enhanced Installation Check
-function isPWAInstalled() {
-  // Check all possible installation indicators
-  return (
-    window.matchMedia('(display-mode: standalone)').matches ||
-    navigator.standalone ||
-    (window.navigator.getInstalledRelatedApps && 
-      window.navigator.getInstalledRelatedApps().then(apps => apps.length > 0)) ||
-    localStorage.getItem('pwa-installed') === 'true'
-  );
+// 1. Real-time Installation Check
+async function isPWAInstalled() {
+  // Check multiple indicators
+  if (window.matchMedia('(display-mode: standalone)').matches) return true;
+  if (navigator.standalone) return true;
+  
+  // Modern Android detection
+  if (window.navigator.getInstalledRelatedApps) {
+    const apps = await window.navigator.getInstalledRelatedApps();
+    return apps.length > 0;
+  }
+  
+  return false;
 }
 
-// 2. Button Management
-function manageInstallButtons() {
-  const shouldHide = isPWAInstalled();
+// 2. Dynamic Button Management
+async function manageInstallButtons() {
+  const installed = await isPWAInstalled();
+  const showButtons = !installed && deferredPrompt;
   
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
-      if (shouldHide) {
-        btn.style.display = 'none';
-        btn.style.visibility = 'hidden';
-      } else {
-        btn.style.display = deferredPrompt ? 'flex' : 'none';
-        btn.style.visibility = deferredPrompt ? 'visible' : 'hidden';
-      }
+      btn.style.display = showButtons ? 'flex' : 'none';
+      btn.style.visibility = showButtons ? 'visible' : 'hidden';
     }
   });
 }
 
 // 3. Installation Flow
-function showInstallPrompt() {
+async function showInstallPrompt() {
   if (!deferredPrompt) return;
   
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(choice => {
+  try {
+    deferredPrompt.prompt();
+    const choice = await deferredPrompt.userChoice;
     if (choice.outcome === 'accepted') {
-      localStorage.setItem('pwa-installed', 'true'); // Persistent flag
       showSuccessPopup();
     }
+  } finally {
     deferredPrompt = null;
     manageInstallButtons();
-  });
+  }
 }
 
-// 4. Event Listeners
+// 4. Enhanced Event Listeners
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -55,26 +55,34 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 
 window.addEventListener('appinstalled', () => {
-  localStorage.setItem('pwa-installed', 'true'); // Android needs this
   showSuccessPopup();
   manageInstallButtons();
 });
 
-// 5. Initialization
+// 5. Advanced Monitoring
+let lastKnownState = null;
+
+async function checkPWAState() {
+  const currentState = await isPWAInstalled();
+  
+  // Only update if state changed
+  if (currentState !== lastKnownState) {
+    lastKnownState = currentState;
+    manageInstallButtons();
+  }
+}
+
+// 6. Initialize
 document.addEventListener('DOMContentLoaded', () => {
   // Setup buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.onclick = showInstallPrompt;
   });
+
+  // Real-time monitoring (every 2 seconds)
+  setInterval(checkPWAState, 2000);
   
-  // Check every second (for Android quirks)
-  setInterval(manageInstallButtons, 1000);
-  
-  // Clear flag if uninstalled (for debugging)
-  window.addEventListener('beforeunload', () => {
-    if (!isPWAInstalled()) {
-      localStorage.removeItem('pwa-installed');
-    }
-  });
+  // Initial check
+  checkPWAState();
 });
