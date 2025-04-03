@@ -1,15 +1,12 @@
-// Custom PWA Installation Handler with Success Popup
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Check if app is already installed
 function isPWAInstalled() {
   return window.matchMedia('(display-mode: standalone)').matches || 
          navigator.standalone ||
          (window.navigator.standalone !== undefined && window.navigator.standalone);
 }
 
-// 2. Success Popup Function
 function showSuccessPopup() {
   const popup = document.createElement('div');
   popup.innerHTML = `
@@ -30,8 +27,6 @@ function showSuccessPopup() {
       نصب با موفقیت انجام شد!
     </div>
   `;
-  
-  // Add animation styles
   const style = document.createElement('style');
   style.textContent = `
     @keyframes slideIn {
@@ -42,21 +37,16 @@ function showSuccessPopup() {
       to { opacity: 0; visibility: hidden; }
     }
   `;
-  
   document.head.appendChild(style);
   document.body.appendChild(popup);
-  
-  // Remove after animation completes
   setTimeout(() => {
     popup.remove();
     style.remove();
   }, 3000);
 }
 
-// 3. Manage install buttons visibility
 function manageInstallButtons() {
   const shouldHide = isPWAInstalled();
-  
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
@@ -71,20 +61,24 @@ function manageInstallButtons() {
   });
 }
 
-// 4. Detect if the device is iOS
 function isIOS() {
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+  const userAgent = navigator.userAgent || navigator.platform || '';
+  const isIOSDevice = /iPhone|iPad|iPod/i.test(userAgent);
+  const isMacLike = /Mac/i.test(userAgent) && ('ontouchend' in document);
+  return isIOSDevice || isMacLike;
 }
 
-// 5. Show iOS installation guideline modal
 function showIosInstallModal() {
   const modal = document.getElementById('iosInstallModal');
+  console.log('Modal found:', modal);
   if (modal) {
     modal.style.display = 'flex';
+    console.log('Modal display set to flex');
+  } else {
+    console.error('iOS Install Modal not found in the DOM');
   }
 }
 
-// 6. Close iOS installation guideline modal
 function closeIosInstallModal() {
   const modal = document.getElementById('iosInstallModal');
   if (modal) {
@@ -92,14 +86,12 @@ function closeIosInstallModal() {
   }
 }
 
-// 7. Custom install prompt
 function showCustomInstallPrompt() {
-  // Check if the device is iOS
+  console.log('showCustomInstallPrompt called');
+  console.log('isIOS:', isIOS());
   if (isIOS()) {
-    // Show the iOS installation guideline modal
     showIosInstallModal();
   } else if (deferredPrompt) {
-    // For non-iOS devices, directly trigger the installation prompt
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(choice => {
       if (choice.outcome === 'accepted') {
@@ -111,17 +103,14 @@ function showCustomInstallPrompt() {
   }
 }
 
-// 8. Event Listeners
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  
-  // Show your install buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.style.display = 'flex';
-      btn.onclick = showCustomInstallPrompt;
+      btn.addEventListener('click', showCustomInstallPrompt);
     }
   });
 });
@@ -131,22 +120,18 @@ window.addEventListener('appinstalled', () => {
   manageInstallButtons();
 });
 
-// 9. Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  // Set up your install buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
-      btn.onclick = showCustomInstallPrompt;
+      btn.addEventListener('click', showCustomInstallPrompt);
     }
   });
-  
-  // Set up the close button for the iOS modal
+
   const closeIosModalBtn = document.getElementById('closeIosModal');
   if (closeIosModalBtn) {
-    closeIosModalBtn.onclick = closeIosInstallModal;
+    closeIosModalBtn.addEventListener('click', closeIosInstallModal);
   }
-  
-  // Initial check
+
   manageInstallButtons();
 });
