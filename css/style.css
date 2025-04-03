@@ -541,14 +541,14 @@ border-left: 1px solid black;
   height: 10%; 
   left: 65%;
   position: relative;
-/* background-color: black; */
-  border-bottom: 1px solid green;
-  border-left: 1px solid green;
+background-color: black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
   justify-content: center;
   align-items: center;
+  display: flex;
   cursor: pointer;
   transition: 0.4s ease-in-out;
-  color: green;
 }
 
 .lb2:hover {
@@ -2044,6 +2044,11 @@ transition: 0.3s ease-in-out;
 
 /* تضمین پنهان بودن دکمه‌ها در حالت PWA */
 /* مخفی کردن دکمهها وقتی اپ نصب شده است */
+/* @media (display-mode: standalone) {
+  .install-button {
+    display: none !important;
+  }
+} */
 
 
 
