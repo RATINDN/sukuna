@@ -9,7 +9,7 @@ const urlsToCache = [
   '/js/backbutton.js',
   '/install.js',
   '/images/icon-192x192.png',
-  '/images/icon-512x512.png', 
+  '/images/icon-512x512.png',
   '/images/car 1.avif',
   '/images/1.webp',
   '/images/2.webp',
