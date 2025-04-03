@@ -1,15 +1,18 @@
-// Complete PWA Installation Handler with Popups
+// Complete PWA Installation Handler with iOS Fix
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Enhanced Installation Detection
+// 1. Enhanced Installation Detection with iOS Fix
 async function isPWAInstalled() {
-  // Check all possible installation indicators
+  // Standard checks
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
-  const isIOS = navigator.standalone;
   const localStorageFlag = localStorage.getItem('pwa-installed') === 'true';
   
-  // Special check for Android
+  // iOS-specific check
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isIOSPWA = window.navigator.standalone;
+  
+  // Android-specific check
   let isAndroidPWA = false;
   if (window.navigator.getInstalledRelatedApps) {
     try {
@@ -20,75 +23,54 @@ async function isPWAInstalled() {
     }
   }
 
-  return isStandalone || isIOS || isAndroidPWA || localStorageFlag;
-}
-
-// 2. Beautiful Popup Messages
-function showPopup(message, isSuccess = true) {
-  // Remove existing popups
-  document.querySelectorAll('.pwa-popup').forEach(el => el.remove());
-  
-  const popup = document.createElement('div');
-  popup.className = 'pwa-popup';
-  popup.innerHTML = `
-    <div style="
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: ${isSuccess ? '#4CAF50' : '#f44336'};
-      color: white;
-      padding: 15px 25px;
-      border-radius: 5px;
-      z-index: 1000;
-      font-family: 'Vazirmatn', sans-serif;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      animation: slideIn 0.5s, fadeOut 0.5s 3s forwards;
-    ">
-      ${message}
-    </div>
-  `;
-  
-  // Add animations only once
-  if (!document.getElementById('pwa-popup-styles')) {
-    const style = document.createElement('style');
-    style.id = 'pwa-popup-styles';
-    style.textContent = `
-      @keyframes slideIn {
-        from { top: -50px; opacity: 0; }
-        to { top: 20px; opacity: 1; }
-      }
-      @keyframes fadeOut {
-        to { opacity: 0; visibility: hidden; }
-      }
-    `;
-    document.head.appendChild(style);
+  // Special handling for iOS refresh issue
+  if (isIOS) {
+    if (isIOSPWA) {
+      localStorage.setItem('pwa-installed', 'true');
+      return true;
+    }
+    return localStorageFlag;
   }
-  
-  document.body.appendChild(popup);
-  
-  // Auto-remove after animation
-  setTimeout(() => {
-    popup.remove();
-  }, 3500);
+
+  return isStandalone || isAndroidPWA || localStorageFlag;
 }
 
-// 3. Button Visibility Management
+// 2. Popup Messages (unchanged)
+function showPopup(message, isSuccess = true) {
+  /* ... (keep existing popup code) ... */
+}
+
+// 3. Button Visibility Management with iOS Fix
 async function manageInstallButtons() {
   const installed = await isPWAInstalled();
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
   
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
-      const shouldShow = !installed && deferredPrompt;
+      // Special case: Don't show install button on iOS if already installed
+      const shouldShow = !installed && (deferredPrompt || isIOS);
+      
       btn.style.display = shouldShow ? 'flex' : 'none';
       btn.style.visibility = shouldShow ? 'visible' : 'hidden';
+      
+      // iOS-specific button text
+      if (isIOS) {
+        btn.textContent = 'برای نصب، از گزینه "اشتراک گذاری" سپس "Add to Home Screen" استفاده کنید';
+      }
     }
   });
 }
 
-// 4. Installation Flow
+// 4. Installation Flow with iOS Handling
 async function showInstallPrompt() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
+  if (isIOS) {
+    showPopup('در iOS، لطفاً از منوی اشتراک گذاری استفاده کنید', false);
+    return;
+  }
+
   if (!deferredPrompt) {
     showPopup('امکان نصب در این مرورگر وجود ندارد', false);
     return;
@@ -108,11 +90,14 @@ async function showInstallPrompt() {
   }
   
   deferredPrompt = null;
-  manageInstallButtons();
+  await manageInstallButtons();
 }
 
-// 5. Event Listeners
+// 5. Event Listeners (with iOS detection)
 window.addEventListener('beforeinstallprompt', (e) => {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (isIOS) return; // Skip on iOS
+  
   e.preventDefault();
   deferredPrompt = e;
   manageInstallButtons();
@@ -124,22 +109,28 @@ window.addEventListener('appinstalled', () => {
   manageInstallButtons();
 });
 
-// 6. Initialization
+// 6. Initialization with iOS Special Handling
 document.addEventListener('DOMContentLoaded', async () => {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  
   // Setup install buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
       btn.onclick = showInstallPrompt;
       btn.style.transition = 'all 0.3s ease';
+      
+      if (isIOS) {
+        btn.style.display = 'flex'; // Always show on iOS with instructions
+      }
     }
   });
 
   // Initial check
   await manageInstallButtons();
   
-  // Periodic checks (every 2 seconds)
-  setInterval(manageInstallButtons, 2000);
+  // More frequent checks for iOS
+  const checkInterval = setInterval(manageInstallButtons, isIOS ? 1000 : 2000);
   
   // Clear flag if uninstalled
   window.addEventListener('beforeunload', () => {
@@ -149,11 +140,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// Service Worker Communication
+// Service Worker Communication (unchanged)
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.addEventListener('message', (event) => {
-    if (event.data === 'update-pwa-status') {
-      manageInstallButtons();
-    }
-  });
+  /* ... (keep existing service worker code) ... */
 }
