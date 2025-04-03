@@ -1,126 +1,170 @@
-// Custom PWA Installation Handler with Success Popup
+// PWA Installation Handler - Complete Solution
 let deferredPrompt;
-const installBtnIds = ['installButton', 'installButton2'];
+let isPWA = false;
+const installButtons = ['installButton', 'installButton2'];
+let displayMode = 'browser';
 
-// 1. Check if app is already installed
-function isPWAInstalled() {
-  return window.matchMedia('(display-mode: standalone)').matches || 
-         navigator.standalone ||
-         (window.navigator.standalone !== undefined && window.navigator.standalone);
+// Advanced PWA Detection
+function checkPWAStatus() {
+  // Cross-platform detection
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  const isiOSPWA = navigator.standalone;
+  const isChromePWA = window.navigator.getInstalledRelatedApps 
+    ? window.navigator.getInstalledRelatedApps().then(apps => apps.length > 0)
+    : false;
+
+  return isStandalone || isiOSPWA || isChromePWA;
 }
 
-// 2. Success Popup Function
-function showSuccessPopup() {
-  const popup = document.createElement('div');
-  popup.innerHTML = `
-    <div style="
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #4CAF50;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 5px;
-      z-index: 1000;
-      font-family: 'Vazirmatn', sans-serif;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
-    ">
-      نصب با موفقیت انجام شد!
-    </div>
-  `;
+// Display Mode Detection
+function detectDisplayMode() {
+  displayMode = window.matchMedia('(display-mode: standalone)').matches 
+    ? 'standalone' 
+    : 'browser';
   
-  // Add animation styles
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes slideIn {
-      from { top: -50px; opacity: 0; }
-      to { top: 20px; opacity: 1; }
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-  `;
+  // iOS specific detection
+  if(navigator.standalone) displayMode = 'standalone';
   
-  document.head.appendChild(style);
-  document.body.appendChild(popup);
-  
-  // Remove after animation completes
-  setTimeout(() => {
-    popup.remove();
-    style.remove();
-  }, 3000);
+  return displayMode;
 }
 
-// 3. Manage install buttons visibility
-function manageInstallButtons() {
-  const shouldHide = isPWAInstalled();
+// Monitor Display Changes
+function monitorDisplayChanges() {
+  // Window resize tracking
+  window.addEventListener('resize', checkPWAStatus);
   
-  installBtnIds.forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      if (shouldHide) {
-        btn.style.display = 'none';
-        btn.style.visibility = 'hidden';
-      } else {
-        btn.style.display = 'flex';
-        btn.style.visibility = 'visible';
-      }
-    }
+  // Page visibility tracking
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible') checkPWAStatus();
+  });
+  
+  // Chrome-specific tracking
+  window.matchMedia('(display-mode: standalone)').addListener((e) => {
+    displayMode = e.matches ? 'standalone' : 'browser';
+    manageInstallButtons();
   });
 }
 
-// 4. Custom install prompt
-function showCustomInstallPrompt() {
-  // You can replace this with your custom modal
-  const confirmed = confirm('آیا می‌خواهید این اپلیکیشن را روی صفحه اصلی نصب کنید؟');
-  
-  if (confirmed && deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if (choice.outcome === 'accepted') {
-        showSuccessPopup();
-        manageInstallButtons();
-      }
-      deferredPrompt = null;
-    });
+// URL Parameter Check
+function checkURLParams() {
+  const params = new URLSearchParams(window.location.search);
+  if(params.has('pwa')) {
+    manageInstallButtons();
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 }
 
-// 5. Event Listeners
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
+// Show Success Message
+function showSuccessMessage() {
+  const msg = document.createElement('div');
+  msg.textContent = 'نصب با موفقیت انجام شد';
+  Object.assign(msg.style, {
+    position: 'fixed',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    padding: '15px 25px',
+    borderRadius: '5px',
+    zIndex: '1000',
+    fontFamily: "'Vazirmatn', sans-serif",
+    transition: 'top 0.3s ease-in-out'
+  });
+
+  document.body.appendChild(msg);
+  setTimeout(() => {
+    msg.style.top = '-100px';
+    setTimeout(() => msg.remove(), 300);
+  }, 3000);
+}
+
+// Handle Installation
+function handleInstall() {
+  if(deferredPrompt) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if(isMobile) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(choice => {
+        if(choice.outcome === 'accepted') {
+          showSuccessMessage();
+          window.location.search += '&pwa=true';
+        }
+        deferredPrompt = null;
+      });
+    } else {
+      // Desktop behavior
+      alert('برای نصب اپلیکیشن، در مرورگر خود از گزینه "Install" یا "Add to Home Screen" استفاده کنید');
+    }
+  }
+}
+
+// Manage Install Buttons
+function manageInstallButtons() {
+  detectDisplayMode();
   
-  // Show your install buttons
-  installBtnIds.forEach(id => {
+  installButtons.forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) {
-      btn.style.display = 'flex';
-      btn.onclick = showCustomInstallPrompt;
+    if(!btn) return;
+    
+    // Apply styles directly
+    btn.style.display = displayMode === 'standalone' ? 'none' : 'flex';
+    btn.style.visibility = displayMode === 'standalone' ? 'hidden' : 'visible';
+    btn.style.opacity = displayMode === 'standalone' ? '0' : '1';
+    btn.style.pointerEvents = displayMode === 'standalone' ? 'none' : 'all';
+    btn.style.transition = 'all 0.3s ease';
+    
+    // Remove completely from DOM in PWA mode
+    if(displayMode === 'standalone' && btn.parentNode) {
+      btn.parentNode.removeChild(btn);
     }
   });
-});
+}
 
-window.addEventListener('appinstalled', () => {
-  showSuccessPopup();
-  manageInstallButtons();
-});
-
-// 6. Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  // Set up your install buttons
-  installBtnIds.forEach(id => {
+// Initialize Everything
+function initPWAHandlers() {
+  // Set up event listeners
+  installButtons.forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) {
-      btn.onclick = showCustomInstallPrompt;
-    }
+    if(btn) btn.addEventListener('click', handleInstall);
   });
+
+  // Set up monitoring
+  monitorDisplayChanges();
+  checkURLParams();
   
   // Initial check
   manageInstallButtons();
   
-  // Check periodically (every second)
+  // Periodic checks
   setInterval(manageInstallButtons, 1000);
+  
+  // Mutation observer for dynamic content
+  new MutationObserver(manageInstallButtons).observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+}
+
+// Event Listeners
+window.addEventListener('appinstalled', () => {
+  console.log('PWA installed successfully');
+  isPWA = true;
+  manageInstallButtons();
+  setTimeout(() => window.location.reload(), 500);
+});
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  manageInstallButtons();
+});
+
+// Start everything when DOM is ready
+document.addEventListener('DOMContentLoaded', initPWAHandlers);
+
+// Final check after everything loads
+window.addEventListener('load', () => {
+  setTimeout(manageInstallButtons, 3000);
 });
