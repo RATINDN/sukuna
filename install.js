@@ -1,26 +1,19 @@
+// Custom PWA Installation Handler with Success Popup
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Detect if the device is iOS
-function isIOS() {
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-// 2. Check if PWA is installed
+// 1. Check if app is already installed
 function isPWAInstalled() {
   return window.matchMedia('(display-mode: standalone)').matches || 
          navigator.standalone ||
          (window.navigator.standalone !== undefined && window.navigator.standalone);
 }
 
-// 3. Success Popup
+// 2. Success Popup Function
 function showSuccessPopup() {
-  // Check if popup already exists to prevent duplicates
-  if (document.querySelector('.pwa-install-success')) return;
-
   const popup = document.createElement('div');
   popup.innerHTML = `
-    <div class="pwa-install-success" style="
+    <div style="
       position: fixed;
       top: 20px;
       left: 50%;
@@ -28,40 +21,17 @@ function showSuccessPopup() {
       background-color: #4CAF50;
       color: white;
       padding: 15px 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 90%;
-      width: 400px;
-      z-index: 10000;
+      border-radius: 5px;
+      z-index: 1000;
       font-family: 'Vazirmatn', sans-serif;
-      animation: slideIn 0.5s ease-out forwards, fadeOut 0.5s 3s forwards;
-      -webkit-font-smoothing: antialiased;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
     ">
-      <!-- Checkmark Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/>
-      </svg>
-      <!-- Message -->
-      <span style="flex: 1; text-align: center; font-size: 16px;">
-        نصب با موفقیت انجام شد!
-      </span>
-      <!-- Close Button -->
-      <button id="closePopup" style="
-        background: none;
-        border: none;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        padding: 0 5px;
-      ">
-        ✕
-      </button>
+      نصب با موفقیت انجام شد!
     </div>
   `;
-
+  
+  // Add animation styles
   const style = document.createElement('style');
   style.textContent = `
     @keyframes slideIn {
@@ -71,142 +41,66 @@ function showSuccessPopup() {
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
     }
-    /* Responsive adjustments for mobile (Android/iOS) */
-    @media (max-width: 600px) {
-      .pwa-install-success {
-        width: 90%;
-        padding: 12px 20px;
-        font-size: 14px;
-      }
-      .pwa-install-success svg {
-        width: 20px;
-        height: 20px;
-      }
-    }
-    /* iOS-specific adjustments (safe area for notch) */
-    @supports (-webkit-touch-callout: none) and (not (translate: none)) {
-      .pwa-install-success {
-        padding-top: calc(20px + env(safe-area-inset-top, 0px));
-      }
-    }
   `;
-
+  
   document.head.appendChild(style);
   document.body.appendChild(popup);
-
-  // Close button functionality
-  const closeButton = popup.querySelector('#closePopup');
-  if (closeButton) {
-    closeButton.addEventListener('click', () => {
-      popup.style.animation = 'fadeOut 0.3s forwards';
-      setTimeout(() => popup.remove(), 300);
-    });
-  }
-
-  // Auto-dismiss after 3 seconds
+  
+  // Remove after animation completes
   setTimeout(() => {
-    if (popup.parentNode) {
-      popup.style.animation = 'fadeOut 0.5s forwards';
-      setTimeout(() => popup.remove(), 500);
-    }
+    popup.remove();
+    style.remove();
   }, 3000);
 }
 
-// 4. Show a guide for iOS users
-function showIOSInstallGuide() {
-  const popup = document.createElement('div');
-  popup.innerHTML = `
-    <div class="pwa-install-guide" style="
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #2196F3;
-      color: white;
-      padding: 15px 25px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      max-width: 90%;
-      width: 400px;
-      z-index: 10000;
-      font-family: 'Vazirmatn', sans-serif;
-      animation: slideIn 0.5s ease-out forwards;
-      -webkit-font-smoothing: antialiased;
-    ">
-      <!-- Info Icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-      </svg>
-      <!-- Message -->
-      <span style="flex: 1; text-align: center; font-size: 16px;">
-        برای نصب، روی دکمه اشتراک‌گذاری در سافاری ضربه بزنید و "Add to Home Screen" را انتخاب کنید.
-      </span>
-      <!-- Close Button -->
-      <button id="closeGuide" style="
-        background: none;
-        border: none;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        padding: 0 5px;
-      ">
-        ✕
-      </button>
-    </div>
-  `;
+// 3. Manage install buttons visibility
+function manageInstallButtons() {
+  const shouldHide = isPWAInstalled();
+  
+  installBtnIds.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      if (shouldHide) {
+        btn.style.display = 'none';
+        btn.style.visibility = 'hidden';
+      } else {
+        btn.style.display = 'flex';
+        btn.style.visibility = 'visible';
+      }
+    }
+  });
+}
 
-  document.body.appendChild(popup);
-
-  // Close button functionality
-  const closeButton = popup.querySelector('#closeGuide');
-  if (closeButton) {
-    closeButton.addEventListener('click', () => {
-      popup.style.animation = 'fadeOut 0.3s forwards';
-      setTimeout(() => popup.remove(), 300);
+// 4. Custom install prompt
+function showCustomInstallPrompt() {
+  // You can replace this with your custom modal
+  const confirmed = confirm('آیا می‌خواهید این اپلیکیشن را روی صفحه اصلی نصب کنید؟');
+  
+  if (confirmed && deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      if (choice.outcome === 'accepted') {
+        showSuccessPopup();
+        manageInstallButtons();
+      }
+      deferredPrompt = null;
     });
   }
 }
 
-// 5. Button Visibility Management
-function manageInstallButtons() {
-  const shouldHide = isPWAInstalled() || (!deferredPrompt && !isIOS());
-
-  installBtnIds.forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) {
-      btn.style.display = shouldHide ? 'none' : 'block';
-      btn.style.visibility = shouldHide ? 'hidden' : 'visible';
-    }
-  });
-}
-
-// 6. Installation Flow
-function showInstallPrompt() {
-  if (isIOS()) {
-    showIOSInstallGuide();
-    return;
-  }
-
-  if (!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(choice => {
-    if (choice.outcome === 'accepted') {
-      showSuccessPopup();
-    }
-    deferredPrompt = null;
-    manageInstallButtons();
-  });
-}
-
-// 7. Event Listeners
+// 5. Event Listeners
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  manageInstallButtons();
+  
+  // Show your install buttons
+  installBtnIds.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.style.display = 'flex';
+      btn.onclick = showCustomInstallPrompt;
+    }
+  });
 });
 
 window.addEventListener('appinstalled', () => {
@@ -214,21 +108,19 @@ window.addEventListener('appinstalled', () => {
   manageInstallButtons();
 });
 
-// 8. Initialization
+// 6. Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  // Setup install buttons
+  // Set up your install buttons
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
-    if (btn) btn.onclick = showInstallPrompt;
+    if (btn) {
+      btn.onclick = showCustomInstallPrompt;
+    }
   });
-
+  
   // Initial check
   manageInstallButtons();
-
-  // Periodic checks to handle Android refresh
-  setInterval(() => {
-    if (!isPWAInstalled() && !deferredPrompt && !isIOS()) {
-      manageInstallButtons();
-    }
-  }, 1000);
+  
+  // Check periodically (every second)
+  setInterval(manageInstallButtons, 1000);
 });
