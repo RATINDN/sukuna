@@ -1,20 +1,23 @@
 let deferredPrompt;
 const installBtnIds = ['installButton', 'installButton2'];
 
-// 1. Installation Check
+// 1. Detect if the device is iOS
+function isIOS() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// 2. Check if PWA is installed
 function isPWAInstalled() {
   return window.matchMedia('(display-mode: standalone)').matches || 
          navigator.standalone ||
          (window.navigator.standalone !== undefined && window.navigator.standalone);
 }
 
-// 2. Detect if the device is iOS
-function isIOS() {
-  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
 // 3. Success Popup
 function showSuccessPopup() {
+  // Check if popup already exists to prevent duplicates
+  if (document.querySelector('.pwa-install-success')) return;
+
   const popup = document.createElement('div');
   popup.innerHTML = `
     <div class="pwa-install-success" style="
@@ -26,15 +29,15 @@ function showSuccessPopup() {
       color: white;
       padding: 15px 25px;
       border-radius: 10px;
-      z-index: 1000;
-      font-family: 'Vazirmatn', sans-serif;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       gap: 10px;
       max-width: 90%;
       width: 400px;
-      animation: slideIn 0.5s ease-out, fadeOut 0.5s 2.5s forwards;
+      z-index: 10000;
+      font-family: 'Vazirmatn', sans-serif;
+      animation: slideIn 0.5s ease-out forwards, fadeOut 0.5s 3s forwards;
       -webkit-font-smoothing: antialiased;
     ">
       <!-- Checkmark Icon -->
@@ -68,7 +71,7 @@ function showSuccessPopup() {
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
     }
-    /* Responsive adjustments */
+    /* Responsive adjustments for mobile (Android/iOS) */
     @media (max-width: 600px) {
       .pwa-install-success {
         width: 90%;
@@ -81,9 +84,9 @@ function showSuccessPopup() {
       }
     }
     /* iOS-specific adjustments (safe area for notch) */
-    @supports (padding-top: env(safe-area-inset-top)) {
+    @supports (-webkit-touch-callout: none) and (not (translate: none)) {
       .pwa-install-success {
-        padding-top: calc(20px + env(safe-area-inset-top));
+        padding-top: calc(20px + env(safe-area-inset-top, 0px));
       }
     }
   `;
@@ -122,15 +125,15 @@ function showIOSInstallGuide() {
       color: white;
       padding: 15px 25px;
       border-radius: 10px;
-      z-index: 1000;
-      font-family: 'Vazirmatn', sans-serif;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
       gap: 10px;
       max-width: 90%;
       width: 400px;
-      animation: slideIn 0.5s ease-out;
+      z-index: 10000;
+      font-family: 'Vazirmatn', sans-serif;
+      animation: slideIn 0.5s ease-out forwards;
       -webkit-font-smoothing: antialiased;
     ">
       <!-- Info Icon -->
@@ -174,7 +177,7 @@ function manageInstallButtons() {
   installBtnIds.forEach(id => {
     const btn = document.getElementById(id);
     if (btn) {
-      btn.style.display = shouldHide ? 'none' : 'flex';
+      btn.style.display = shouldHide ? 'none' : 'block';
       btn.style.visibility = shouldHide ? 'hidden' : 'visible';
     }
   });
@@ -222,6 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial check
   manageInstallButtons();
 
-  // Periodic checks
-  setInterval(manageInstallButtons, 1000);
+  // Periodic checks to handle Android refresh
+  setInterval(() => {
+    if (!isPWAInstalled() && !deferredPrompt && !isIOS()) {
+      manageInstallButtons();
+    }
+  }, 1000);
 });
