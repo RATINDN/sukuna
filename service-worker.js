@@ -6,7 +6,7 @@ const urlsToCache = [
   '/css/style.css',
   '/js/server.js',
   '/js/js.js',
-  '/js(backbutton.js',
+  '/js/backbutton.js',
   '/install.js',
   '/images/icon-192x192.png',
   '/images/icon-512x192.png',
