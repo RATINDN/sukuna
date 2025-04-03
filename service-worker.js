@@ -1,20 +1,15 @@
-const CACHE_NAME = 'v2';
-const ASSETS = [
+const CACHE_NAME = 'sukuna-pwa-v1';
+const urlsToCache = [
   '/',
   '/index.html',
-  '/login.html',
-  '/css/style.css',
-  '/js/js.js',
-  '/js/server.js',
-  '/backbutton.js',
-  '/install.js',
   '/manifest.json',
+  '/css/style.css',
+  '/js/server.js',
+  '/js/js.js',
+  '/js(backbutton.js',
+  '/install.js',
   '/images/icon-192x192.png',
-  '/images/icon-512x512.png',
-  '/images/icon-152x152.png',
-  '/images/icon-180x180.png',
-  '/images/icon-167x167.png',
-  '/images/splash-640x1136.png',
+  '/images/icon-512x192.png',
   '/images/car 1.avif',
   '/images/1.webp',
   '/images/2.webp',
@@ -24,20 +19,36 @@ const ASSETS = [
   '/images/6.webp',
   '/images/man.webp',
   '/images/woman.webp',
-  '/images/ios-install-guide.jpg' // Add the new image here
+  '/images/x-lg.svg'
 ];
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
-      .then(() => self.skipWaiting())
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
   );
 });
 
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request)
-      .then(response => response || fetch(e.request))
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  const cacheWhitelist = [CACHE_NAME];
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
   );
 });
