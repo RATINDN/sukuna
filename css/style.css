@@ -513,7 +513,6 @@ transition: 0.5s;
   right: 0;
 background-color: white;  
 /* overflow-x: hidden; */
-border-left: 1px solid black;
 border-bottom: none !important;
   transition: 0.5s;
   /* padding-top: 60px; */
