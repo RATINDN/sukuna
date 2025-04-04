@@ -272,7 +272,7 @@ function darkmode() {
   const li1 = document.getElementById("li1");
   const btn = document.getElementById("closebtn");
   const veil2 = document.getElementById("veil2");
-  const lb1 = document.getElementById("lb1");
+  const lb1 = document.querySelector(".lb");
   const boxing1 = document.getElementById("boxing1");
   const boxing2 = document.getElementById("boxing2");
   const boxing3 = document.getElementById("boxing3");
@@ -336,7 +336,7 @@ window.addEventListener('load', () => {
   const li1 = document.getElementById("li1");
   const btn = document.getElementById("closebtn");
   const veil2 = document.getElementById("veil2");
-  const lb1 = document.getElementById("lb1");
+  const lb1 = document.querySelector(".lb");
   const boxing1 = document.getElementById("boxing1");
   const boxing2 = document.getElementById("boxing2");
   const boxing3 = document.getElementById("boxing3");
