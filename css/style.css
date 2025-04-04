@@ -2106,7 +2106,7 @@ transition: 0.3s ease-in-out;
   max-width: 300px;
   margin-bottom: 20px;
   border-radius: 10px;
-  max-height: 50px;
+  max-height: 100px;
 }
 #iosInstallModal button {
   background: #4CAF50;
