@@ -257,7 +257,7 @@ function darkmode() {
   const element = document.body;
   const brandFilter = document.getElementById('brand-filter');
   const brandFilter_mobile = document.getElementById('brand-filter-mobile');
-
+const ios = document.getElementById('ios');
 
   const myMenu = document.getElementById('myMenu');
   const nav = document.getElementById('nav');
@@ -290,6 +290,7 @@ function darkmode() {
   localStorage.setItem("darkMode", isDark);
   brandFilter_mobile.classList.toggle("const-select");
   brandFilter.classList.toggle("const-select");
+  ios.classList.toggle("const-ios");
   sun.classList.toggle("const-sun");
   moon.classList.toggle("const-moon");
   nav.classList.toggle("dark-mode");
@@ -323,7 +324,7 @@ window.addEventListener('load', () => {
   const element = document.body;
   const brandFilter = document.getElementById('brand-filter');
   const brandFilter_mobile = document.getElementById('brand-filter-mobile');
-
+const ios = document.getElementById('ios');
   const nav = document.getElementById('nav');
   const bow = document.getElementById('bow');
   const reg = document.getElementById('register');
@@ -355,6 +356,7 @@ window.addEventListener('load', () => {
     brandFilter_mobile.classList.add("const-select");
     brandFilter.classList.add("const-select");
     element.classList.add("dark-mode");
+    ios.classList.add("const-ios");
     sun.classList.add("const-sun");
     moon.classList.add("const-moon");
     nav.classList.add("dark-mode");
@@ -385,6 +387,7 @@ window.addEventListener('load', () => {
     brandFilter_mobile.classList.remove("const-select");
     brandFilter.classList.remove("const-select");
     element.classList.remove("dark-mode");
+    ios.classList.remove("const-ios");
     sun.classList.remove("const-sun");
     moon.classList.remove("const-moon");
     nav.classList.remove("dark-mode");

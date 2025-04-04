@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.const-ios{
+  background-color: #161616 !important;
+}
+
 .dark-mode {
   background-color: #161616 !important;
   color: white !important;
@@ -2082,7 +2086,7 @@ transition: 0.3s ease-in-out;
   align-items: center;
 }
 #iosInstallModal > div {
-  background: #fff;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
