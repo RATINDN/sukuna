@@ -630,7 +630,7 @@ background-color: black;
   height: 0%;
   width: 0%;
   position: fixed;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   z-index: 1;
   top: 0;
