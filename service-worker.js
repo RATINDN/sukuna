@@ -8,9 +8,9 @@ const urlsToCache = [
   '/js/js.js',
   '/js/backbutton.js',
   '/install.js',
-  '/js/cloudflare-jsd.js', 
+  '/js/cloudflare-jsd.js',
   '/images/icon-192x192.png',
-  '/images/icon-512x512.png',
+  '/images/icon-512x192.png',
   '/images/car-1.avif',
   '/images/1.webp',
   '/images/2.webp',
@@ -20,7 +20,11 @@ const urlsToCache = [
   '/images/6.webp',
   '/images/man.webp',
   '/images/woman.webp',
-  '/images/x-lg.svg'
+  '/images/x-lg.svg',
+  '/images/ki.jpg',
+  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+  'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css' // Add this line
 ];
 
 // Install event: Cache the files
