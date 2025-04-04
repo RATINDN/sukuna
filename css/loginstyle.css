@@ -261,4 +261,16 @@ display: flex;
     padding: 1.5rem;
     margin: 1rem;
   }
+  
+  .login-container h1, .login-container h2, .login-container h3, .login-container h4, .login-container h5, .login-container h6, .login-container p, .login-container span {
+    font-size: small !important;
+  }
+
+  a{
+    font-size: smaller !important;
+  }
+
+  .signup-section {
+    font-size: smaller !important;
+  }
 }
