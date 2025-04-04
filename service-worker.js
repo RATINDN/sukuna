@@ -10,7 +10,7 @@ const urlsToCache = [
   '/install.js',
   '/js/cloudflare-jsd.js',
   '/images/icon-192x192.png',
-  '/images/icon-512x192.png',
+  '/images/icon-512x512.png',
   '/images/car-1.avif',
   '/images/1.webp',
   '/images/2.webp',
@@ -22,9 +22,6 @@ const urlsToCache = [
   '/images/woman.webp',
   '/images/x-lg.svg',
   '/images/ki.jpg',
-  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
-  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
-  'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css' // Add this line
 ];
 
 // Install event: Cache the files
@@ -39,20 +36,37 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch event: Serve cached files or fetch from network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
-        // Cache hit - return response
         if (response) {
           return response;
         }
 
-        // Not in cache - return fetch from network
-        return fetch(event.request);
-      }
-    )
+        const fetchRequest = event.request.clone();
+
+        return fetch(fetchRequest).then((response) => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseToCache);
+          });
+
+          return response;
+        }).catch(() => {
+          if (event.request.mode === 'navigate') {
+            return caches.match('/offline.html');
+          }
+          return new Response('Offline: Resource not available', {
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
+      })
   );
 });
 
