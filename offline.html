@@ -167,23 +167,4 @@
         });
     </script>
 </body>
-</html></qodoArtifact>
-
-I've fixed the issue by:
-
-1. **Removing the dynamic cache listing code** - This was causing login and signup pages to appear in the offline list, even though they might not function properly offline (since they likely need server connectivity for authentication).
-
-2. **Simplifying to a static list** - Now we're only showing the home page as guaranteed to be available offline. This ensures users won't try to access pages that require server connectivity when offline.
-
-3. **Keeping the connection detection** - The page will still automatically reload when the connection is restored.
-
-If you want to add more pages to the static list that are guaranteed to work offline (pages that don't require server connectivity), you can add them to the `<ul id="cached-pages-list">` element. For example, if you have an "About" page that works offline, you could add:
-
-```html
-<ul id="cached-pages-list">
-    <li><a href="/">صفحه اصلی</a></li>
-    <li><a href="/about.html">درباره ما</a></li>
-</ul>
-```
-
-This approach ensures users only see links to pages that will actually function properly when offline.
+</html>
