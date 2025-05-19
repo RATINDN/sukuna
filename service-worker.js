@@ -1,18 +1,16 @@
-// service-worker.js
-
-const CACHE_NAME = 'sukuna-pwa-v2'; // نام کش شما
-const OFFLINE_URL = '/offline.html'; // آدرس صفحه آفلاین شما
+const CACHE_NAME = 'sukuna-pwa-v2';
+const OFFLINE_URL = '/offline.html';
 
 // Resources to cache immediately on install
 const CORE_ASSETS = [
-  './',
+  './', 
   '/index.html',
   '/manifest.json',
-  '/offline.html', // اطمینان حاصل کنید این فایل در روت پروژه موجود است
+  '/offline.html',
   '/css/style.css',
   '/css/loginstyle.css',
   '/css/signup.css',
-  '/js/cloudflare-jsd.js', // یا pwa-handler.js اگر از آن استفاده می‌کنید
+  '/js/cloudflare-jsd.js',
   '/images/icon-192x192.png',
   '/images/icon-512x512.png'
 ];
@@ -37,8 +35,8 @@ const SECONDARY_ASSETS = [
   '/images/woman.webp',
   '/images/x-lg.svg',
   '/images/ki.jpg',
-  '/login.html', // این صفحات به عنوان دارایی‌های ثانویه کش می‌شوند
-  '/signup.html', //
+  '/login.html',
+  '/signup.html',
   'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css',
   'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
   'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'
@@ -50,11 +48,7 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Caching core resources...');
-        return cache.addAll(CORE_ASSETS); //
-      })
-      .catch(error => {
-        console.error('Failed to cache CORE_ASSETS:', error);
-        // این مهم است که بدانید اگر یکی از فایل‌های CORE_ASSETS کش نشود، ممکن است offline.html هم کش نشود.
+        return cache.addAll(CORE_ASSETS);
       })
       .then(() => self.skipWaiting())
   );
@@ -78,145 +72,155 @@ self.addEventListener('activate', (event) => {
         // Cache secondary assets in the background
         caches.open(CACHE_NAME).then(cache => {
           console.log('Caching secondary resources in background...');
-          cache.addAll(SECONDARY_ASSETS).catch(error => { //
-            console.log('Background caching error for SECONDARY_ASSETS:', error); //
+          cache.addAll(SECONDARY_ASSETS).catch(error => {
+            console.log('Background caching error:', error);
           });
         });
+        
         return self.clients.claim();
       })
   );
 });
 
-
-// Helper function to handle Netlify's redirect behavior (بدون تغییر)
+// Helper function to handle Netlify's redirect behavior
 function isNetlifyRedirect(url) {
-  return url.pathname.indexOf('.') === -1 && !url.pathname.endsWith('/'); //
+  // Netlify often serves /page instead of /page.html or /page/index.html
+  return url.pathname.indexOf('.') === -1 && !url.pathname.endsWith('/');
 }
 
-// Helper function to try alternative URLs for Netlify (بدون تغییر)
+// Helper function to try alternative URLs for Netlify
 async function tryAlternativeNetlifyUrls(request) {
   const url = new URL(request.url);
   const alternativeUrls = [];
+  
+  // Try with .html extension
   if (!url.pathname.endsWith('/') && !url.pathname.includes('.')) {
-    alternativeUrls.push(new Request(`${url.origin}${url.pathname}.html${url.search}`)); //
+    alternativeUrls.push(new Request(`${url.origin}${url.pathname}.html${url.search}`));
   }
+  
+  // Try with /index.html
   if (!url.pathname.endsWith('/')) {
-    alternativeUrls.push(new Request(`${url.origin}${url.pathname}/index.html${url.search}`)); //
+    alternativeUrls.push(new Request(`${url.origin}${url.pathname}/index.html${url.search}`));
   }
+  
+  // Try each alternative URL
   for (const altRequest of alternativeUrls) {
     const cachedResponse = await caches.match(altRequest);
     if (cachedResponse) {
       return cachedResponse;
     }
   }
+  
   return null;
 }
-
 
 // Fetch event - network-first for HTML, cache-first for assets
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-
-  if (event.request.method !== 'GET' ||
-      (url.origin !== self.location.origin && !url.href.includes('cdn.jsdelivr.net'))) {
+  
+  // Skip non-GET requests and browser extensions
+  if (event.request.method !== 'GET' || 
+      url.origin !== self.location.origin && 
+      !url.href.includes('cdn.jsdelivr.net')) {
     return;
   }
-
-  if (event.request.mode === 'navigate' ||
-      (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html'))) {
+  
+  // HTML pages - network first, then cache, then offline page
+  if (event.request.mode === 'navigate' || 
+      event.request.headers.get('accept').includes('text/html')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
+          // Cache the latest version
           const clonedResponse = response.clone();
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, clonedResponse);
           });
           return response;
         })
-        .catch(async () => { // اگر شبکه قطع بود یا خطایی رخ داد
-          // ابتدا سعی کنید صفحه درخواست شده را از کش پیدا کنید
+        .catch(async () => {
+          // Try from cache
           const cachedResponse = await caches.match(event.request);
           if (cachedResponse) {
             return cachedResponse;
           }
-
-          // (منطق Netlify بدون تغییر باقی می‌ماند)
+          
+          // Try alternative URLs for Netlify
           if (isNetlifyRedirect(url)) {
-            const netlifyResponse = await tryAlternativeNetlifyUrls(event.request); //
+            const netlifyResponse = await tryAlternativeNetlifyUrls(event.request);
             if (netlifyResponse) {
               return netlifyResponse;
             }
           }
-
-          // اگر صفحه درخواست شده در کش نبود، صفحه آفلاین را نمایش دهید
-          try {
-            const offlinePageResponse = await caches.match(OFFLINE_URL); //
-            if (offlinePageResponse) {
-              return offlinePageResponse;
-            }
-            // اگر حتی صفحه آفلاین هم در کش نبود (که نباید اتفاق بیفتد اگر CORE_ASSETS درست کش شده باشند)
-            console.warn(`${OFFLINE_URL} not found in cache. Serving a very basic fallback.`);
-            return new Response("شما آفلاین هستید. صفحه آفلاین ما در حال حاضر در دسترس نیست.", {
-              status: 503,
-              statusText: "Service Unavailable",
-              headers: new Headers({ "Content-Type": "text/html; charset=utf-8" })
-            });
-          } catch (error) {
-            console.error('Error fetching offline page:', error);
-            return new Response("خطایی هنگام بارگذاری صفحه آفلاین رخ داد.", {
-              status: 500,
-              statusText: "Internal Server Error",
-              headers: new Headers({ "Content-Type": "text/html; charset=utf-8" })
-            });
-          }
+          
+          // Fallback to offline page
+          return caches.match(OFFLINE_URL);
         })
     );
     return;
   }
-
-  // For assets - cache first, then network (stale-while-revalidate) (بدون تغییر)
+  
+  // For assets - cache first, then network
   event.respondWith(
     caches.match(event.request)
       .then(cachedResponse => {
-        // Stale-while-revalidate: serve from cache and update in background
-        const fetchPromise = fetch(event.request).then(networkResponse => {
-          if (networkResponse && networkResponse.ok) {
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, networkResponse.clone());
-            });
-          }
-          return networkResponse;
-        }).catch(() => {
-          // اگر شبکه برای بروزرسانی کش در دسترس نباشد، مشکلی نیست، چون از کش پاسخ داده شده است
-        });
-
-        // اگر در کش بود، آن را برگردان و همزمان سعی کن از شبکه آپدیت کنی
         if (cachedResponse) {
-          event.waitUntil(fetchPromise); // آپدیت کش را در پس‌زمینه انجام بده
+          // Return cached response and update cache in background
+          // This implements a stale-while-revalidate strategy
+          const updateCache = fetch(event.request)
+            .then(networkResponse => {
+              if (networkResponse && networkResponse.ok) {
+                caches.open(CACHE_NAME).then(cache => {
+                  cache.put(event.request, networkResponse.clone());
+                });
+              }
+            })
+            .catch(() => {
+              // Network request failed, but we already have cached version
+            });
+            
+          // Don't wait for the cache update
+          event.waitUntil(updateCache);
           return cachedResponse;
         }
-        // اگر در کش نبود، از شبکه بگیر
-        return fetchPromise;
-      })
-      .catch(() => {
-        // مدیریت خطا برای دارایی‌هایی که نه در کش هستند و نه از شبکه قابل دریافتند
-        if (event.request.url.match(/\.(jpg|jpeg|png|gif|webp|avif|svg)$/)) {
-          // می‌توانید یک تصویر placeholder برگردانید اگر دارید
-          // return caches.match('/images/placeholder.svg');
-        }
-        // برای سایر منابع
-        return new Response('محتوای آفلاین در دسترس نیست', {
-          status: 404, // یا 503
-          statusText: 'Not Found', // یا 'Service Unavailable'
-          headers: new Headers({ 'Content-Type': 'text/plain; charset=utf-8' })
-        });
+        
+        // Not in cache, get from network
+        return fetch(event.request)
+          .then(response => {
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+            
+            // Cache the response for future
+            const responseToCache = response.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, responseToCache);
+            });
+            
+            return response;
+          })
+          .catch(() => {
+            // For images, return a placeholder if available
+            if (event.request.url.match(/\.(jpg|jpeg|png|gif|webp|avif|svg)$/)) {
+              return caches.match('/images/placeholder.svg');
+            }
+            
+            // For other resources
+            return new Response('Offline content not available', {
+              status: 503,
+              statusText: 'Service Unavailable',
+              headers: new Headers({
+                'Content-Type': 'text/plain'
+              })
+            });
+          });
       })
   );
 });
 
-// Periodic cache update when online (بدون تغییر)
+// Periodic cache update when online
 self.addEventListener('sync', (event) => {
-  if (event.tag === 'update-cache') { //
+  if (event.tag === 'update-cache') {
     event.waitUntil(
       caches.open(CACHE_NAME).then(cache => {
         return Promise.all([...CORE_ASSETS, ...SECONDARY_ASSETS].map(url => {
@@ -233,9 +237,9 @@ self.addEventListener('sync', (event) => {
   }
 });
 
-// Listen for messages from the client (بدون تغییر)
+// Listen for messages from the client
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') { //
+  if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
