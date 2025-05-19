@@ -4,9 +4,14 @@ const urlsToCache = [
   '/index.html',
   '/manifest.json',
   '/css/style.css',
+  '/css/loginstyle.css',
+  '/css/signup.css',
   '/js/server.js',
   '/js/js.js',
   '/js/backbutton.js',
+  '/js/login.js',
+  '/js/signup.js',
+  '/js/login signup.js',
   '/install.js',
   '/js/cloudflare-jsd.js',
   '/images/icon-192x192.png',
@@ -22,55 +27,81 @@ const urlsToCache = [
   '/images/woman.webp',
   '/images/x-lg.svg',
   '/images/ki.jpg',
+  '/login.html',
+  '/signup.html',
+  'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css',
+  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+  'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+  '/offline.html'  // Create this file for offline fallback
 ];
 
-// Install event: Cache the files
+// Install event - cache all initial resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         console.log('Opened cache');
-        return cache.addAll(urlsToCache); // Add all URLs to cache
+        return cache.addAll(urlsToCache);
       })
-      .then(() => self.skipWaiting()) // Activate worker immediately
+      .then(() => self.skipWaiting())
   );
 });
 
+// Fetch event - serve from cache first, then network
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
+        // Cache hit - return response
         if (response) {
           return response;
         }
 
+        // Clone the request
         const fetchRequest = event.request.clone();
 
-        return fetch(fetchRequest).then((response) => {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
+        // Try network request
+        return fetch(fetchRequest)
+          .then((response) => {
+            // Check if valid response
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response;
+            }
+
+            // Clone the response
+            const responseToCache = response.clone();
+
+            // Add to cache
+            caches.open(CACHE_NAME)
+              .then((cache) => {
+                cache.put(event.request, responseToCache);
+              });
+
             return response;
-          }
-
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
+          })
+          .catch(() => {
+            // Network failed - serve offline page for navigation requests
+            if (event.request.mode === 'navigate') {
+              return caches.match('/offline.html');
+            }
+            
+            // Return a default offline response for other resources
+            return new Response(
+              'Offline: Resource not available', 
+              {
+                status: 503,
+                statusText: 'Service Unavailable',
+                headers: new Headers({
+                  'Content-Type': 'text/plain'
+                })
+              }
+            );
           });
-
-          return response;
-        }).catch(() => {
-          if (event.request.mode === 'navigate') {
-            return caches.match('/offline.html');
-          }
-          return new Response('Offline: Resource not available', {
-            status: 503,
-            statusText: 'Service Unavailable'
-          });
-        });
       })
   );
 });
 
-// Activate event: Remove old caches
+// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
 
@@ -78,14 +109,12 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
-          if (cacheWhitelist.indexOf(cacheName) === -1) {
-            // Delete caches that are not in the whitelist
-            console.log('Deleting old cache:', cacheName);
+          if (!cacheWhitelist.includes(cacheName)) {
             return caches.delete(cacheName);
           }
         })
       );
     })
-      .then(() => self.clients.claim()) // Take control of all clients
+    .then(() => self.clients.claim())
   );
 });
