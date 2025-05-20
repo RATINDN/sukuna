@@ -42,13 +42,52 @@ window.addEventListener('load', () => {
 
 //  Path: js/js.js
 
-window.addEventListener("load", function() {
+// window.addEventListener("load", function() {
+//   const loader = document.getElementById('container-load');
+//   loader.style.opacity = '0';
+//   setTimeout(() => {
+//     loader.style.display = 'none';
+//   }, 500);
+// });
+
+// Add this function at the end of your js.js file
+function hideLoader() {
   const loader = document.getElementById('container-load');
-  loader.style.opacity = '0';
-  setTimeout(() => {
-    loader.style.display = 'none';
-  }, 500);
+  if (loader) {
+    loader.style.opacity = '0';
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 500);
+  }
+}
+
+// Replace your existing load event listener with this:
+window.addEventListener("load", function() {
+  // Set a maximum timeout for the loader
+  const loaderTimeout = setTimeout(() => {
+    hideLoader();
+  }, 5000); // Force hide after 5 seconds if stuck
+
+  // Try to hide loader normally
+  hideLoader();
+  
+  // Clear timeout if loader hides normally
+  clearTimeout(loaderTimeout);
 });
+
+// Add error handling for resources
+window.addEventListener('error', function(e) {
+  if (e.target.tagName === 'IMG' || e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK') {
+    // If a resource fails to load, still hide the loader
+    hideLoader();
+  }
+}, true);
+
+// Add backup hiding mechanism
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(hideLoader, 3000); // Backup timeout after DOM loads
+});
+
 
 const faviconLink = document.createElement('link');
 faviconLink.rel = 'icon';
