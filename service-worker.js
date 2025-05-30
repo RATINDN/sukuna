@@ -24,7 +24,7 @@ const SECONDARY_ASSETS = [
   '/js/signup.js',
   '/js/login signup.js',
   '/install.js',
-  '/images/car-1.avif',
+  '/images/car-1.webp',
   '/images/1.webp',
   '/images/2.webp',
   '/images/3.webp',
