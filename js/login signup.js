@@ -51,41 +51,60 @@ window.addEventListener('load', () => {
 // });
 
 // Add this function at the end of your js.js file
-function hideLoader() {
-  const loader = document.getElementById('container-load');
-  if (loader) {
-    loader.style.opacity = '0';
+document.addEventListener('DOMContentLoaded', () => {
+  const loader = document.querySelector('.container-load');
+  if (!loader) return;
+
+  // Function to hide the loader
+  const hideLoader = () => {
+    loader.style.opacity = '0'; // Fade out using the transition defined in CSS
     setTimeout(() => {
-      loader.style.display = 'none';
-    }, 500);
+      loader.style.display = 'none'; // Remove from display after the transition
+    }, 500); // Match the 0.5s transition duration in CSS
+  };
+
+  // Check for images
+  const images = document.querySelectorAll('img');
+  let loadedImages = 0;
+  const totalImages = images.length;
+
+  // If no images, wait for window.onload only
+  if (totalImages === 0) {
+    window.addEventListener('load', hideLoader);
+    return;
   }
-}
 
-// Replace your existing load event listener with this:
-window.addEventListener("load", function() {
-  // Set a maximum timeout for the loader
-  const loaderTimeout = setTimeout(() => {
-    hideLoader();
-  }, 5000); // Force hide after 5 seconds if stuck
+  // Track image loading
+  const onImageLoad = () => {
+    loadedImages++;
+    if (loadedImages === totalImages) {
+      hideLoader();
+    }
+  };
 
-  // Try to hide loader normally
-  hideLoader();
-  
-  // Clear timeout if loader hides normally
-  clearTimeout(loaderTimeout);
-});
+  // Monitor image loading
+  images.forEach((img) => {
+    if (img.complete) {
+      onImageLoad();
+    } else {
+      img.addEventListener('load', onImageLoad);
+      img.addEventListener('error', onImageLoad); // Handle broken images
+    }
+  });
 
-// Add error handling for resources
-window.addEventListener('error', function(e) {
-  if (e.target.tagName === 'IMG' || e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK') {
-    // If a resource fails to load, still hide the loader
-    hideLoader();
-  }
-}, true);
+  // Fallback: Ensure window.onload also triggers the loader hide
+  window.addEventListener('load', () => {
+    if (loadedImages === totalImages) {
+      hideLoader();
+    }
+  });
 
-// Add backup hiding mechanism
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(hideLoader, 3000); // Backup timeout after DOM loads
+  // Fallback timeout to prevent infinite loading
+  setTimeout(() => {
+    if (loader.style.display !== 'none') {
+      hideLoader();
+    }
+  }, 10000); // 10 seconds timeout
 });
 
 
