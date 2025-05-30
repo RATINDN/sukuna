@@ -4,110 +4,64 @@
   box-sizing: border-box;
 }
 
-.const-ios{
-  background-color: #161616 !important;
-}
-
-.dark-mode {
-  background-color: #161616 !important;
-  color: white !important;
-  border-bottom: 1px solid white;
-  transition: 0.4s ease-in-out;
-
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --label-color: #000000;
+  --secondary-text: #555555;
+  --card-bg: #ffffff;
+  --border-color: #dddddd;
+  --input-bg: #ffffff;
+  --primary-color: #000000;
+  --primary-hover: #333333;
+  --bg-body-color: ghostwhite;
+  --menu-bg: #ffffff;
+  --veil-bg: #ffffff;
+  --scroll-bg: #ffffff;
+  --scroll-thumb: #000000;
+  --button-text: #ffffff;
+  --button-border: #000000;
+  --footer-bg: #000000;
+  --footer-text: #ffffff;
+  --search-bg: rgba(255, 255, 255, 0.635);
+  --modal-bg: rgba(0, 0, 0, 0.5);
+  --opposite-color: #ffffff;
+  --blur-background:  rgba(255, 255, 255, 0.635);
   
-}
-.const-select{
-  transition: 0.4s ease-in-out;
-  border-bottom: 1px solid white !important;
-  border-left: 1px solid white !important;
-}
-.const-bow{
-  border-left: 1px solid white !important;
-  transition: 0.4s ease-in-out;
-
+  --hover-color-li:rgba(0, 0, 0, 0.13);
 }
 
-.const-register{
-  transition: 0.4s ease-in-out;
-  border: 1px solid white !important;
+.darkmode {
+  --bg-color: #161616;
+  --text-color: #ffffff;
+  --label-color: #ffffff;
+  --secondary-text: #aaaaaa;
+  --card-bg: #111111;
+  --border-color: #333333;
+  --input-bg: #111111;
+  --primary-color: #ffffff;
+  --primary-hover: #cccccc;
+  --bg-body-color: #161616;
+  --menu-bg: #161616;
+  --veil-bg: #161616;
+  --scroll-bg: #ffffff;
+  --opposite-color:#000000;
+  --blur-background:  rgba(22, 22, 22, 0.8);
+  --hover-color-li:rgba(255, 255, 255, 0.13);
 
-
+  --scroll-thumb: #ffffff;
+  --button-text: #000000;
+  --button-border: #ffffff;
+  --footer-bg: #161616;
+  --footer-text: #ffffff;
+  --search-bg: rgba(22, 22, 22, 0.8);
+  --modal-bg: rgba(0, 0, 0, 0.7);
 }
 
-.const-scroll{
-  background-color: white !important;
-  transition: 0.4s ease-in-out;
+body{
+  background-color: var(--bg-body-color) !important;
+  color: var(--text-color);
 }
-
-.const-button2{
-  color: white !important;
-  transition: 0.4s ease-in-out;
-}
-
-.const-li1:hover{
- border-bottom: 1px solid white !important;
-}
-
-.const-li2:hover{
-  border-bottom: 1px solid white !important;
- }
-
- .const-closebtn:hover{
-  background-color: white !important;
-  color: black !important;
-  border: 1px solid black !important;
- }
-
- .const-veil2{
-  background-color: #161616 !important;
-  border-top: 1px solid white !important;
- }
-
-
-.const-sun{
-  display: flex !important;
-  color: white !important;
-
-
-}
-
-.const-moon{
-  color: white !important;
-  display: none !important;
-
-
-}
-
-.const-lb{
-  border-bottom: 1px solid white !important;
-  color: white !important;
-}
-
-.const-menu{
-  background-color: #161616 !important;
-}
-
-.const-open{
-  background-color: #161616 !important;
-}
-
-.const-box{
-color: white  !important;
-}
-
-.const-search{
-  background-color: #161616a1 !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px );
-  
-}
-
-.const-search-mode{
-  border-bottom: 1px solid white !important;
-  color: white !important;
-}
-
-
 
 
 
@@ -166,8 +120,8 @@ main{
 nav{
   width: 100%;
   height: 53px;
- border-bottom: 1px solid black;
- background-color: white;
+ border-bottom: 1px solid var(--primary-color);
+ background-color: var(--bg-color) !important;
  position: fixed;
  display: flex;
  justify-content: space-between;
@@ -265,7 +219,7 @@ ul{
   width: 100%;
   position: fixed;
   top: 83px;
-  background-color: black;
+  background-color: var(--primary-color);
   z-index: 2;
   transform-origin: left;
   transform: scaleX(0); /* Start fully collapsed */
@@ -282,7 +236,7 @@ ul{
 {
   width: 12%;
   height: 100%;
-  border-left: 1px solid black;
+  border-left: 1px solid var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -293,88 +247,7 @@ ul{
 
 
 
-/* .header {
-  display: flex;
-  align-items: center;
-  width: 65%;
-  float: right;
-  position: relative;
-  left: -10px;
-  z-index: 1;
-  height: 30px;
-  
-  
-  
 
-} 
-
- .header span {
-   flex: 1;
-}
-
-
-
-
-
-.roll{
-  width: 100%;
-  height: 200px;
-}
-
-
-
-
-
-
-
-
-input[type="text"] {
-  border: none;
-  background: none;
- margin-top: 4%;
-  height: 100%;
-  width: 70px;
-  font-size: normal;
-  text-align: right;
-  outline: none;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-variant: small-caps;
-  color: black;
-  cursor: pointer;
-  transition: width .3s ease-in-out;
-  
-  
-} 
- input[type="text"]:focus {
-  font-family: 'Roboto', sans-serif;
-  font-size: 24px;
-  color: #000000;
-  text-align: left;
-  width: 100%;
-  height: 10px;
-  padding: 20px;
-  border-radius: 0;
-  background: #fff;  
-  border-bottom: 2px solid black;
-  position: relative;
- margin-top: -0%;
-
-} 
-
- input[type="text"]:blur {
-  border: none;
-  
-  height: 50px;
-  width: 50px;
-  
-  font-size: 50px;
-  color: rgba(255, 255, 255, 0);
-  text-align: right;
-  
-  outline: none;
-  cursor: pointer;
-  transition: width .3s;
-} */
 
 .register {
   display: flex;
@@ -382,8 +255,8 @@ input[type="text"] {
   align-items: center;
   width: 80%;
   height: 80%;
-  background-color: black;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--bg-color);
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-variant: small-caps;
   font-size: small;
@@ -397,15 +270,15 @@ input[type="text"] {
 }
 
 .register:hover {
-  border: 1px solid black !important;
-  background-color: white;
-  color: black;
+  border: 1px solid var(--button-border) !important;
+  background-color: var(--opposite-color);
+  color: var(--text-color);
   transition: 0.4s;
 }
 
 .li1:hover{
 
- border-bottom: 1px solid black;
+ border-bottom: 1px solid var(--primary-color);
  /* height: 57px; */
 
   
@@ -413,7 +286,7 @@ input[type="text"] {
 
 .li1:hover{
 transition: 0.5s;
- background-color: rgba(0, 0, 0, 0.13) !important;
+ background-color: var(--hover-color-li) !important;
   /* height: 57px; */
  
    
@@ -422,7 +295,7 @@ transition: 0.5s;
 
  .li2:hover{
   transition: 0.5s;
-   background-color: rgba(0, 0, 0, 0.13);
+   background-color: var(--hover-color-li);
     /* height: 57px; */
    
      
@@ -430,7 +303,7 @@ transition: 0.5s;
 
 .li2:hover{
 
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--primary-color);
   /* height: 57px; */
    
  }
@@ -442,8 +315,8 @@ transition: 0.5s;
   #menu-box{
   width: 93%;
   height: 60px;
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid var(--primary-color) !important;
+  background-color: var(--veil-bg);
   display: flex;
  position: fixed;
  z-index: 3;
@@ -515,7 +388,7 @@ transition: 0.5s;
   z-index: 1 ;
   top: 0;
   right: 0;
-background-color: white;  
+background-color: var(--bg-color);  
 /* overflow-x: hidden; */
 border-bottom: none !important;
   transition: 0.5s;
@@ -524,15 +397,15 @@ border-bottom: none !important;
   /* align-items: center; */
   /* opacity: 0.98; */
   z-index: 9;
-  color: #fff;
+  color: var(--text-color);
   flex-direction: column;
 }
 
 .lb{
   width: 100%;
   height: 70px ;
-  border-bottom: 1px solid black;
-  color: black;
+  border-bottom: 1px solid var(--primary-color);
+  color: var(--text-color);
   justify-content: start;
   display: flex;
   cursor: pointer;
@@ -588,13 +461,13 @@ background-color: black;
 
 
 .lb:hover{
-  background-color: rgba(0, 0, 0, 0.176);
+  background-color: var(--hover-color-li);
   transition: 0.4s;
 
 }
 
 .lb3:hover{
-  background-color: rgba(0, 0, 0, 0.176);
+  background-color: var(--hover-color-li);
   transition: 0.4s;
 
 }
@@ -635,9 +508,9 @@ background-color: black;
   z-index: 1;
   top: 0;
   right: 0;
-background-color: white;  
+background-color: var(--bg-color);  
 /* overflow-x: hidden; */
-border-left: 1px solid black;
+border-left: 1px solid var(--primary-color);
   transition: 0.5s;
   /* padding-top: 60px; */
   
@@ -655,8 +528,8 @@ align-items: center;  /* display: none; */
 .veil2{
   width: 93%;
   height: 60px;
-  border: 1px solid black;
-  background-color: white;
+  border: 1px solid var(--primary-color) !important;
+  background-color: var(--veil-bg) !important;
   display: flex;
  position: fixed;
  z-index: 3;
@@ -664,7 +537,7 @@ align-items: center;  /* display: none; */
  /* opacity: 0; */
  /* height: 0 !important; */
  left: 33px;
- border-radius: 0 0 15px 15px;
+ border-radius: 0 0 15px 15px !important;
 justify-content: center;
 align-items: center;
  transition: 0.5s ease-in-out;
@@ -682,7 +555,7 @@ align-items: center;
   position: -webkit-sticky;
     width: 0%;
   height: 0%;
-  background: rgba(255, 255, 255, 0.635);
+  background:var(--blur-background) !important;
   z-index: 1;
   top: 0;
   backdrop-filter: blur(10px );
@@ -699,7 +572,7 @@ align-items: center;
   color: black;
   position: -webkit-sticky;
   
-  background: rgba(255, 255, 255, 0.635);
+  background: var(--blur-background);
   z-index: 1;
   top: 0;
   backdrop-filter: blur(10px );
@@ -750,13 +623,13 @@ cursor: pointer;
   outline: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-variant: small-caps;
-  color: black;
+  color: var(--text-color);
   cursor: pointer;
   display: block;
   position: sticky;
   z-index: 1;
   border-radius: 0 !important;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--primary-color);
   border-top: none;
   border-left: none;
   border-right: none;
@@ -783,7 +656,7 @@ cursor: pointer;
   outline: none;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-variant: small-caps;
-  color: black;
+  color: var(--text-color);
   cursor: pointer;
   transition: 0.2s ease-in-out;
 border-radius: 0 !important;
@@ -821,7 +694,7 @@ border-radius: 0 !important;
  /* opacity: 0; */
  /* height: 0 !important; */
  left: 33px;
- border-radius: 0 0 15px 15px;
+ border-radius: 0 0 0px 15px !important;
  /* justify-content: center; */
 
 overflow: auto;
@@ -829,7 +702,7 @@ overflow: auto;
   display: block;
   position: sticky;
   z-index: 1;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--primary-color);
 
   
 }
@@ -1132,7 +1005,7 @@ align-items: center;
 .child2{
   width: 100%;
   height: 550px !important;
-  background-color: black;
+  background-color: var(--primary-color);
 overflow: hidden;
 opacity: 0.9;
   display: flex;
@@ -1359,7 +1232,10 @@ display: none;
 
 
 
-
+.sun{
+color: var(--text-color);
+  transition: none !important;
+}
 
 
 
@@ -1373,7 +1249,7 @@ display: none;
   border: none;
   background-color: transparent;
   /* border: 1px solid black; */
-  color: black;
+  color: var(--text-color);
   border-radius: 5px;
   cursor: pointer;
 }
@@ -1882,10 +1758,7 @@ del{
   border-radius: 15px 0 0 0 ;
 }
 
-.const-page-up{
-  color: black;
-  background-color: white;
-}
+
 
 
 
@@ -1944,8 +1817,8 @@ del{
   display: none;
   background-color: transparent;
   border: none;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
+  border-left: 1px solid var(--primary-color);
+  border-bottom: 1px solid var(--primary-color);
   /* border-right: 1px solid black; */
   outline: none;
   justify-content: center !important;
@@ -1955,6 +1828,11 @@ del{
   color: gray;
   padding-left: 10px ;
   direction: ltr !important;
+}
+
+.select option
+{
+  background-color: var(--bg-color);
 }
 
 
@@ -2034,44 +1912,6 @@ transition: 0.3s ease-in-out;
 
 
 
-/* Default (inactive) state for buttons and their SVGs */
-/* .backButton, .redoButton { */
-  /* color: #6a6a6a; Default inactive color */
-  /* transition: color 0.3s ease; Smooth color transition */
-/* } */
-
-/* Ensure the SVG inherits the parent's color */
-/* .backButton svg, .redoButton svg { */
-  /* fill: currentColor; This is already set in the SVG, but we confirm it */
-/* } */
-
-/* Active state */
-/* .backButton.active, .redoButton.active { */
-  /* color: white; Active color */
-/* } */
-
-/* Inactive state (optional, for clarity) */
-/* .backButton.inactive, .redoButton.inactive { */
-  /* color: #6a6a6a; Inactive color */
-/* } */
-
-
-/* برای دکمه‌های غیرفعال */
-/* تضمین اولویت استایل‌های جاوااسکریپت */
-/* تضمین نمایش پیام موفقیت در حالت PWA */
-
-
-
-/* تضمین عملکرد صحیح نمایش */
-
-
-/* تضمین پنهان بودن دکمه‌ها در حالت PWA */
-/* مخفی کردن دکمهها وقتی اپ نصب شده است */
-/* @media (display-mode: standalone) {
-  .install-button {
-    display: none !important;
-  }
-} */
 
 #iosInstallModal {
   display: none;
@@ -2086,7 +1926,7 @@ transition: 0.3s ease-in-out;
   align-items: center;
 }
 #iosInstallModal > div {
-  background-color: white;
+  background-color: var(--bg-color) !important;
   padding: 20px;
   border-radius: 10px;
   width: 90%;
@@ -2239,8 +2079,13 @@ transition: 0.3s ease-in-out;
 
 
 
+.h4{
+  color: var(--text-color) !important;
+}
 
-
+#h6{
+  color: var(--text-color) !important;
+}
 
 
 
@@ -2418,7 +2263,6 @@ top: 300px !important;
 {
   width: 30%;
   height: 100%;
-  border-left: 1px solid black;
 }
 
 
@@ -2523,7 +2367,6 @@ ul{
   {
     width: 30%;
     height: 100%;
-    border-left: 1px solid black;
   }
 
 input[type="text"]:focus {

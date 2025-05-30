@@ -35,13 +35,15 @@
 
     --> 
 </head>
-<body style="background-color: ghostwhite;  font-family: var(Vazirmatn-font-face); " aria-disabled="true" id="body" >
+<body style="  font-family: var(Vazirmatn-font-face); " aria-disabled="true" id="body" >
   <style>
-    ::-webkit-search-cancel-button{
-      background: url('images/x-lg.svg ') no-repeat center center ;
-      color: gray !important;
-
-    }
+  input[type="search"]::-webkit-search-cancel-button {
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><line x1='4' y1='4' x2='12' y2='12' stroke='red' stroke-width='2'/><line x1='12' y1='4' x2='4' y2='12' stroke='red' stroke-width='2'/></svg>") no-repeat center center;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
   </style>
 
   <div class="container-load" id="container-load">

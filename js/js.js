@@ -44,7 +44,7 @@ function toggleMenu() {
   menuBox2.style.height = "100%";
   body.style.overflow = "hidden";
   bi_down.style.transform = "rotate(180deg)";
-  li1.style.backgroundColor = "rgba(0, 0, 0, 0.13)";
+  li1.style.backgroundColor = "var(--hover-color-li) !important";
   li1.style.borderBottom = li1;
 
   if (ismenu) {
@@ -253,167 +253,207 @@ const mode2 = document.getElementById('mode2' );
 // }
 
 
-function darkmode() {
-  const element = document.body;
-  const brandFilter = document.getElementById('brand-filter');
-  const brandFilter_mobile = document.getElementById('brand-filter-mobile');
-const ios = document.getElementById('ios');
+// function darkmode() {
+//   const element = document.body;
+//   const brandFilter = document.getElementById('brand-filter');
+//   const brandFilter_mobile = document.getElementById('brand-filter-mobile');
+// const ios = document.getElementById('ios');
 
-  const myMenu = document.getElementById('myMenu');
-  const nav = document.getElementById('nav');
-  const bow = document.getElementById('bow');
-  const reg = document.getElementById('register');
-  const scroll2 = document.getElementById('scroll');
-  const button1 = document.getElementById("button-read1");
-  const button2 = document.getElementById("button-read2");
-  const button3 = document.getElementById("button-read3");
+//   const myMenu = document.getElementById('myMenu');
+//   const nav = document.getElementById('nav');
+//   const bow = document.getElementById('bow');
+//   const reg = document.getElementById('register');
+//   const scroll2 = document.getElementById('scroll');
+//   const button1 = document.getElementById("button-read1");
+//   const button2 = document.getElementById("button-read2");
+//   const button3 = document.getElementById("button-read3");
+//   const moon = document.getElementById("moon");
+//   const sun = document.getElementById("sun");
+//   const li1 = document.getElementById("li1");
+//   const btn = document.getElementById("closebtn");
+//   const veil2 = document.getElementById("veil2");
+//   const lb1 = document.querySelector(".lb");
+//   const boxing1 = document.getElementById("boxing1");
+//   const boxing2 = document.getElementById("boxing2");
+//   const boxing3 = document.getElementById("boxing3");
+//   const boxing4 = document.getElementById("boxing4");
+//   const boxing5 = document.getElementById("boxing5");
+//   const boxing6 = document.getElementById("boxing6");
+//   const boxing7 = document.getElementById("boxing7");
+//   const search_box = document.getElementById("search-box");
+//   const search = document.getElementById("search");
+//   const search_box_2 = document.getElementById("search-box-2");
+//   const search_2 = document.querySelector(".search-input");
+//   const openmenu = document.getElementById("openmenu"); // Mobile menu
+
+//   const isDark = element.classList.toggle("dark-mode");
+//   localStorage.setItem("darkMode", isDark);
+//   brandFilter_mobile.classList.toggle("const-select");
+//   brandFilter.classList.toggle("const-select");
+//   ios.classList.toggle("const-ios");
+//   sun.classList.toggle("const-sun");
+//   moon.classList.toggle("const-moon");
+//   nav.classList.toggle("dark-mode");
+//   bow.classList.toggle("const-bow");
+//   reg.classList.toggle("const-register");
+//   scroll2.classList.toggle("const-scroll");
+//   button1.classList.toggle("const-button2");
+//   button2.classList.toggle("const-button2");
+//   button3.classList.toggle("const-button2");
+//   li1.classList.toggle("const-li1");
+//   btn.classList.toggle("const-closebtn");
+//   veil2.classList.toggle("const-veil2");
+//   lb1.classList.toggle("const-lb");
+//   boxing1.classList.toggle("const-box");
+//   boxing2.classList.toggle("const-box");
+//   boxing3.classList.toggle("const-box");
+//   boxing4.classList.toggle("const-box");
+//   boxing5.classList.toggle("const-box");
+//   boxing6.classList.toggle("const-box");
+//   boxing7.classList.toggle("const-box");
+//   search_box.classList.toggle("const-search");
+//   search.classList.toggle("const-search-mode");
+//   search_box_2.classList.toggle("const-search");
+//   search_2.classList.toggle("const-search-mode");
+//   openmenu.classList.toggle("const-menu"); // Toggle dark mode for mobile menu
+//   myMenu.classList.toggle("dark-mode");
+// }
+
+// window.addEventListener('load', () => {
+//   const isDark = localStorage.getItem("darkMode") === "true";
+//   const element = document.body;
+//   const brandFilter = document.getElementById('brand-filter');
+//   const brandFilter_mobile = document.getElementById('brand-filter-mobile');
+// const ios = document.getElementById('ios');
+//   const nav = document.getElementById('nav');
+//   const bow = document.getElementById('bow');
+//   const reg = document.getElementById('register');
+//   const scroll2 = document.getElementById('scroll');
+//   const button1 = document.getElementById("button-read1");
+//   const button2 = document.getElementById("button-read2");
+//   const button3 = document.getElementById("button-read3");
+//   const moon = document.getElementById("moon");
+//   const sun = document.getElementById("sun");
+//   const li1 = document.getElementById("li1");
+//   const btn = document.getElementById("closebtn");
+//   const veil2 = document.getElementById("veil2");
+//   const lb1 = document.querySelector(".lb");
+//   const boxing1 = document.getElementById("boxing1");
+//   const boxing2 = document.getElementById("boxing2");
+//   const boxing3 = document.getElementById("boxing3");
+//   const boxing4 = document.getElementById("boxing4");
+//   const boxing5 = document.getElementById("boxing5");
+//   const boxing6 = document.getElementById("boxing6");
+//   const boxing7 = document.getElementById("boxing7");
+//   const search_box = document.getElementById("search-box");
+//   const search = document.getElementById("search");
+//   const search_box_2 = document.getElementById("search-box-2");
+//   const search_2 = document.querySelector(".search-input");
+//   const openmenu = document.getElementById("openmenu"); // Mobile menu
+//   const myMenu = document.getElementById('myMenu');
+
+//   if (isDark) {
+//     brandFilter_mobile.classList.add("const-select");
+//     brandFilter.classList.add("const-select");
+//     element.classList.add("dark-mode");
+//     ios.classList.add("const-ios");
+//     sun.classList.add("const-sun");
+//     moon.classList.add("const-moon");
+//     nav.classList.add("dark-mode");
+//     bow.classList.add("const-bow");
+//     reg.classList.add("const-register");
+//     scroll2.classList.add("const-scroll");
+//     button1.classList.add("const-button2");
+//     button2.classList.add("const-button2");
+//     button3.classList.add("const-button2");
+//     li1.classList.add("const-li1");
+//     btn.classList.add("const-closebtn");
+//     veil2.classList.add("const-veil2");
+//     lb1.classList.add("const-lb");
+//     boxing1.classList.add("const-box");
+//     boxing2.classList.add("const-box");
+//     boxing3.classList.add("const-box");
+//     boxing4.classList.add("const-box");
+//     boxing5.classList.add("const-box");
+//     boxing6.classList.add("const-box");
+//     boxing7.classList.add("const-box");
+//     search_box.classList.add("const-search");
+//     search.classList.add("const-search-mode");
+//     search_box_2.classList.add("const-search");
+//     search_2.classList.add("const-search-mode");
+//     openmenu.classList.add("const-menu"); // Apply dark mode to mobile menu
+//     myMenu.classList.add("dark-mode");
+//   } else {
+//     brandFilter_mobile.classList.remove("const-select");
+//     brandFilter.classList.remove("const-select");
+//     element.classList.remove("dark-mode");
+//     ios.classList.remove("const-ios");
+//     sun.classList.remove("const-sun");
+//     moon.classList.remove("const-moon");
+//     nav.classList.remove("dark-mode");
+//     bow.classList.remove("const-bow");
+//     reg.classList.remove("const-register");
+//     scroll2.classList.remove("const-scroll");
+//     button1.classList.remove("const-button2");
+//     button2.classList.remove("const-button2");
+//     button3.classList.remove("const-button2");
+//     li1.classList.remove("const-li1");
+//     btn.classList.remove("const-closebtn");
+//     veil2.classList.remove("const-veil2");
+//     lb1.classList.remove("const-lb");
+//     boxing1.classList.remove("const-box");
+//     boxing2.classList.remove("const-box");
+//     boxing3.classList.remove("const-box");
+//     boxing4.classList.remove("const-box");
+//     boxing5.classList.remove("const-box");
+//     boxing6.classList.remove("const-box");
+//     boxing7.classList.remove("const-box");
+//     search_box.classList.remove("const-search");
+//     search.classList.remove("const-search-mode");
+//     search_box_2.classList.remove("const-search");
+//     search_2.classList.remove("const-search-mode");
+//     openmenu.classList.remove("const-menu"); // Remove dark mode from mobile menu
+//     myMenu.classList.remove("dark-mode");
+//   }
+// });
+
+function darkmode() {
+  const body = document.body;
   const moon = document.getElementById("moon");
   const sun = document.getElementById("sun");
-  const li1 = document.getElementById("li1");
-  const btn = document.getElementById("closebtn");
-  const veil2 = document.getElementById("veil2");
-  const lb1 = document.querySelector(".lb");
-  const boxing1 = document.getElementById("boxing1");
-  const boxing2 = document.getElementById("boxing2");
-  const boxing3 = document.getElementById("boxing3");
-  const boxing4 = document.getElementById("boxing4");
-  const boxing5 = document.getElementById("boxing5");
-  const boxing6 = document.getElementById("boxing6");
-  const boxing7 = document.getElementById("boxing7");
-  const search_box = document.getElementById("search-box");
-  const search = document.getElementById("search");
-  const search_box_2 = document.getElementById("search-box-2");
-  const search_2 = document.querySelector(".search-input");
-  const openmenu = document.getElementById("openmenu"); // Mobile menu
 
-  const isDark = element.classList.toggle("dark-mode");
+  const isDark = body.classList.toggle("darkmode");
   localStorage.setItem("darkMode", isDark);
-  brandFilter_mobile.classList.toggle("const-select");
-  brandFilter.classList.toggle("const-select");
-  ios.classList.toggle("const-ios");
-  sun.classList.toggle("const-sun");
-  moon.classList.toggle("const-moon");
-  nav.classList.toggle("dark-mode");
-  bow.classList.toggle("const-bow");
-  reg.classList.toggle("const-register");
-  scroll2.classList.toggle("const-scroll");
-  button1.classList.toggle("const-button2");
-  button2.classList.toggle("const-button2");
-  button3.classList.toggle("const-button2");
-  li1.classList.toggle("const-li1");
-  btn.classList.toggle("const-closebtn");
-  veil2.classList.toggle("const-veil2");
-  lb1.classList.toggle("const-lb");
-  boxing1.classList.toggle("const-box");
-  boxing2.classList.toggle("const-box");
-  boxing3.classList.toggle("const-box");
-  boxing4.classList.toggle("const-box");
-  boxing5.classList.toggle("const-box");
-  boxing6.classList.toggle("const-box");
-  boxing7.classList.toggle("const-box");
-  search_box.classList.toggle("const-search");
-  search.classList.toggle("const-search-mode");
-  search_box_2.classList.toggle("const-search");
-  search_2.classList.toggle("const-search-mode");
-  openmenu.classList.toggle("const-menu"); // Toggle dark mode for mobile menu
-  myMenu.classList.toggle("dark-mode");
+
+  if (moon && sun) {
+    if (isDark) {
+      moon.style.display = "none";
+      sun.style.display = "block";
+    } else {
+      moon.style.display = "block";
+      sun.style.display = "none";
+    }
+  }
 }
 
 window.addEventListener('load', () => {
   const isDark = localStorage.getItem("darkMode") === "true";
-  const element = document.body;
-  const brandFilter = document.getElementById('brand-filter');
-  const brandFilter_mobile = document.getElementById('brand-filter-mobile');
-const ios = document.getElementById('ios');
-  const nav = document.getElementById('nav');
-  const bow = document.getElementById('bow');
-  const reg = document.getElementById('register');
-  const scroll2 = document.getElementById('scroll');
-  const button1 = document.getElementById("button-read1");
-  const button2 = document.getElementById("button-read2");
-  const button3 = document.getElementById("button-read3");
+  const body = document.body;
   const moon = document.getElementById("moon");
   const sun = document.getElementById("sun");
-  const li1 = document.getElementById("li1");
-  const btn = document.getElementById("closebtn");
-  const veil2 = document.getElementById("veil2");
-  const lb1 = document.querySelector(".lb");
-  const boxing1 = document.getElementById("boxing1");
-  const boxing2 = document.getElementById("boxing2");
-  const boxing3 = document.getElementById("boxing3");
-  const boxing4 = document.getElementById("boxing4");
-  const boxing5 = document.getElementById("boxing5");
-  const boxing6 = document.getElementById("boxing6");
-  const boxing7 = document.getElementById("boxing7");
-  const search_box = document.getElementById("search-box");
-  const search = document.getElementById("search");
-  const search_box_2 = document.getElementById("search-box-2");
-  const search_2 = document.querySelector(".search-input");
-  const openmenu = document.getElementById("openmenu"); // Mobile menu
-  const myMenu = document.getElementById('myMenu');
 
   if (isDark) {
-    brandFilter_mobile.classList.add("const-select");
-    brandFilter.classList.add("const-select");
-    element.classList.add("dark-mode");
-    ios.classList.add("const-ios");
-    sun.classList.add("const-sun");
-    moon.classList.add("const-moon");
-    nav.classList.add("dark-mode");
-    bow.classList.add("const-bow");
-    reg.classList.add("const-register");
-    scroll2.classList.add("const-scroll");
-    button1.classList.add("const-button2");
-    button2.classList.add("const-button2");
-    button3.classList.add("const-button2");
-    li1.classList.add("const-li1");
-    btn.classList.add("const-closebtn");
-    veil2.classList.add("const-veil2");
-    lb1.classList.add("const-lb");
-    boxing1.classList.add("const-box");
-    boxing2.classList.add("const-box");
-    boxing3.classList.add("const-box");
-    boxing4.classList.add("const-box");
-    boxing5.classList.add("const-box");
-    boxing6.classList.add("const-box");
-    boxing7.classList.add("const-box");
-    search_box.classList.add("const-search");
-    search.classList.add("const-search-mode");
-    search_box_2.classList.add("const-search");
-    search_2.classList.add("const-search-mode");
-    openmenu.classList.add("const-menu"); // Apply dark mode to mobile menu
-    myMenu.classList.add("dark-mode");
+    body.classList.add("darkmode");
+    if (moon && sun) {
+      moon.style.display = "none";
+      sun.style.display = "block";
+    }
   } else {
-    brandFilter_mobile.classList.remove("const-select");
-    brandFilter.classList.remove("const-select");
-    element.classList.remove("dark-mode");
-    ios.classList.remove("const-ios");
-    sun.classList.remove("const-sun");
-    moon.classList.remove("const-moon");
-    nav.classList.remove("dark-mode");
-    bow.classList.remove("const-bow");
-    reg.classList.remove("const-register");
-    scroll2.classList.remove("const-scroll");
-    button1.classList.remove("const-button2");
-    button2.classList.remove("const-button2");
-    button3.classList.remove("const-button2");
-    li1.classList.remove("const-li1");
-    btn.classList.remove("const-closebtn");
-    veil2.classList.remove("const-veil2");
-    lb1.classList.remove("const-lb");
-    boxing1.classList.remove("const-box");
-    boxing2.classList.remove("const-box");
-    boxing3.classList.remove("const-box");
-    boxing4.classList.remove("const-box");
-    boxing5.classList.remove("const-box");
-    boxing6.classList.remove("const-box");
-    boxing7.classList.remove("const-box");
-    search_box.classList.remove("const-search");
-    search.classList.remove("const-search-mode");
-    search_box_2.classList.remove("const-search");
-    search_2.classList.remove("const-search-mode");
-    openmenu.classList.remove("const-menu"); // Remove dark mode from mobile menu
-    myMenu.classList.remove("dark-mode");
+    body.classList.remove("darkmode");
+    if (moon && sun) {
+      moon.style.display = "block";
+      sun.style.display = "none";
+    }
   }
 });
 
