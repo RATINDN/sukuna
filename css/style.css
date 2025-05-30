@@ -373,9 +373,8 @@ transition: 0.5s;
 }
 
 .span:hover{
-  background-color: black;
-  border: none;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--opposite-color);
 }
 
 
@@ -882,7 +881,7 @@ overflow: auto;
   
   
   .box-mobile:hover .box-3-mobile{
-    border-bottom: 1px solid ;
+    border-bottom: 1px solid var(--primary-color);
     transition: 0.3s ease-in-out;
   
   }
