@@ -1,6 +1,28 @@
 
 
 
+<?php
+session_start();
+require_once 'db_connect.php';
+
+$logged_in = false;
+$user_name = '';
+
+if (isset($_SESSION['user_id'])) {
+    try {
+        $stmt = $pdo->prepare("SELECT user_name FROM car WHERE id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user) {
+            $logged_in = true;
+            $user_name = $user['user_name'];
+        }
+    } catch (PDOException $e) {
+        // Handle error
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl"> 
 <head>
@@ -37,7 +59,28 @@
     --> 
 </head>
 <body style="  font-family: var(Vazirmatn-font-face); " aria-disabled="true" id="body" >
+  <div class="success-popup" id="loginSuccessPopup" style="display:none;">ورود با موفقیت انجام شد</div>
   <style>
+  .success-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: none;
+    animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
+  }
+  @keyframes slideIn {
+    from { top: -50px; opacity: 0; }
+    to { top: 20px; opacity: 1; }
+  }
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+  }
   input[type="search"]::-webkit-search-cancel-button {
   background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><line x1='4' y1='4' x2='12' y2='12' stroke='red' stroke-width='2'/><line x1='12' y1='4' x2='4' y2='12' stroke='red' stroke-width='2'/></svg>") no-repeat center center;
   width: 16px;
@@ -45,6 +88,27 @@
   cursor: pointer;
   -webkit-appearance: none;
 }
+
+.success-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
+    }
+    @keyframes slideIn {
+      from { top: -50px; opacity: 0; }
+      to { top: 20px; opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
   </style>
 
   <div class="container-load" id="container-load">
@@ -373,7 +437,11 @@
 
       
       <div class="bow" id="bow">
-        <a href="login.html" class="register" id="register">ثبت نام / ورود </a>
+        <?php if ($logged_in): ?>
+            <a href="#" class="register" id="register"><?php echo htmlspecialchars($user_name); ?></a>
+        <?php else: ?>
+            <a href="login.php" class="register" id="register">ثبت نام / ورود </a>
+        <?php endif; ?>
     
   </nav>
  
@@ -753,10 +821,20 @@
   <script src="install.js"></script>
   <script src="js/cloudflare-jsd.js"></script>
 
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('loginSuccess')) {
+        sessionStorage.removeItem('loginSuccess');
+        const loginPopup = document.getElementById('loginSuccessPopup');
+        if (loginPopup) {
+          loginPopup.style.display = 'block';
+          // Animation handles fade out and hiding
+        }
+      }
+    });
+  </script>
 
   <!-- <script src="js/login signup.js"></script> -->
   
 </body>
 </html>
-
