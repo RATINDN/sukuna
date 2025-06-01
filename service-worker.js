@@ -4,7 +4,7 @@ const OFFLINE_URL = '/offline.html';
 // Resources to cache immediately on install
 const CORE_ASSETS = [
   './', 
-  '/index.html',
+  '/index.php',
   '/manifest.json',
   '/offline.html',
   '/css/style.css',
@@ -35,8 +35,8 @@ const SECONDARY_ASSETS = [
   '/images/woman.webp',
   '/images/x-lg.svg',
   '/images/ki.jpg',
-  '/login.html',
-  '/signup.html',
+  '/login.php',
+  '/signup.php',
   'https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css',
   'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
   'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js'

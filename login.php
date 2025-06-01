@@ -1,3 +1,41 @@
+<?php
+session_start();
+require_once 'db_connect.php';
+
+$errors = [];
+$success = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // No validation here - all validation is in JavaScript
+
+    try {
+        $stmt = $pdo->prepare("SELECT id, password, user_name FROM car WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($user && password_verify($password, $user['password'])) {
+            // Login successful
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['user_name'];
+            $success = true;
+            echo "<script>sessionStorage.setItem('loginSuccess', '1');window.location.href='index.php';</script>";
+            exit();
+        } else {
+            $errors['login'] = "ایمیل یا رمز عبور اشتباه است";
+        }
+    } catch (PDOException $e) {
+        $errors['database'] = "خطای پایگاه داده: " . $e->getMessage();
+    }
+}
+
+if (isset($_SESSION['login_success'])) {
+    $success = true;
+    unset($_SESSION['login_success']);
+}
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -9,8 +47,34 @@
   <!-- فونت وزیر برای فارسی -->
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    body { background: var(--bg-color); }
+    * { color: var(--text-color); }
+    .success-popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+      animation: slideIn 0.5s, fadeOut 0.5s 2.5s forwards;
+    }
+    @keyframes slideIn {
+      from { top: -50px; opacity: 0; }
+      to { top: 20px; opacity: 1; }
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+  </style>
 </head>
 <body>
+  <div class="success-popup" id="successPopup">ورود با موفقیت انجام شد</div>
+  <div class="success-popup" id="signupSuccessPopup" style="display:none;">ثبت نام با موفقیت انجام شد</div>
 
   <div class="container-load" id="container-load">
     <span class="container20" id="container20">
@@ -32,10 +96,6 @@
     </span>
   </div>
 
-  <style>
-    body { background: var(--bg-color); }
-    * { color: var(--text-color); }
-  </style>
 <div class="history">
   <div class="redoButton" style="position: relative; right: 10px;">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="arrow-left" style="color: white !important;"   viewBox="0 0 16 16">
@@ -65,10 +125,11 @@
         <p class="login-subtitle">لطفا وارد حساب کاربری خود شوید</p>
       </div>
 
-      <form class="login-form" method="post" action="index.html" id="login-form">
+      <form class="login-form" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" id="login-form">
         <div class="input-group">
           <label for="email">ایمیل</label>
           <input type="email" id="email" name="email"  placeholder="example@domain.com" >
+          <div class="error-container"></div>
         </div>
 
         <div class="input-group">
@@ -76,20 +137,18 @@
           <div class="holder">
           <input type="password" id="password" class="pass" name="password" placeholder="••••••••">
           <span class="toggle-password" onclick="togglePasswordVisibility('password')">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="cursor: pointer;" class=" bi-eye" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="cursor: pointer;" class="bi-eye" viewBox="0 0 16 16">
               <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 3a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5z"/>
               <path d="M8 5a3 3 0 0 0 0 6 3 3 0 0 0 0-6z"/>
             </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="cursor: pointer; display : none;" class=" bi-eye-slash" viewBox="0 0 16 16">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" style="cursor: pointer; display: none;" class="bi-eye-slash" viewBox="0 0 16 16">
               <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
               <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
               <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
             </svg>
           </span>
-        </div>
-
+          </div>
           <div class="error-container"></div>
-
         </div>
 
         <div class="login-options">
@@ -106,7 +165,7 @@
 
       <div class="signup-section">
         حساب کاربری ندارید؟ 
-        <a href="signup.html" class="signup-link">ثبت نام کنید</a>
+                <a href="signup.php" class="signup-link">ثبت نام کنید</a>
       </div>
     </div>  
   </main>
@@ -115,5 +174,28 @@
   <script src="js/login.js"></script>
   <script src="backbutton.js"></script>
 
+  <script>
+    // Show popup after successful login (PHP)
+    <?php if ($success): ?>
+    document.addEventListener('DOMContentLoaded', function() {
+      const popup = document.getElementById('successPopup');
+      popup.style.display = 'block';
+      // Animation handles fade out and hiding
+    });
+    <?php endif; ?>
+
+    // Show popup after successful signup (JS/sessionStorage)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (sessionStorage.getItem('signupSuccess')) {
+        sessionStorage.removeItem('signupSuccess');
+        const signupPopup = document.getElementById('signupSuccessPopup');
+        if (signupPopup) {
+          signupPopup.style.display = 'block';
+          // Animation handles fade out and hiding
+        }
+      }
+    });
+  </script>
 </body>
 </html>
+</qodoArtifact>
