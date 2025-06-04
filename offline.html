@@ -170,7 +170,7 @@
         
         // Dynamically list cached pages if possible
         if ('caches' in window) {
-            caches.open('sukuna-pwa-v2').then(cache => {
+            caches.open('sukuna-pwa-v6').then(cache => {
                 cache.keys().then(requests => {
                     const htmlRequests = requests.filter(request => {
                         const url = new URL(request.url);
